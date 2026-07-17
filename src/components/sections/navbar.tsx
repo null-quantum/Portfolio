@@ -3,8 +3,8 @@
 import * as React from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Terminal } from "lucide-react"
-import { NAV_ITEMS } from "@/lib/portfolio-data"
+import { Menu, X, Coffee } from "lucide-react"
+import { NAV_ITEMS, PROFILE } from "@/lib/portfolio-data"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -50,16 +50,16 @@ export function Navbar() {
           className={cn(
             "mt-3 flex items-center justify-between gap-4 rounded-2xl border px-4 py-2.5 transition-all duration-300",
             scrolled
-              ? "border-border/70 bg-background/80 backdrop-blur-xl shadow-lg shadow-black/5"
+              ? "border-border/70 bg-background/85 backdrop-blur-xl shadow-float"
               : "border-transparent bg-transparent"
           )}
         >
           <Link href="#top" className="flex items-center gap-2 group">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground font-mono text-sm font-bold shadow-md group-hover:scale-105 transition-transform">
-              <Terminal className="h-4 w-4" />
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground font-mono text-sm font-bold shadow-md group-hover:rotate-6 transition-transform">
+              {PROFILE.shortName[0]}
             </span>
             <span className="font-mono text-sm font-semibold tracking-tight">
-              aarav<span className="text-primary">.dev</span>
+              {PROFILE.shortName}<span className="text-primary">.dev</span>
             </span>
           </Link>
 
@@ -90,7 +90,7 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <a href="#contact" className="hidden sm:block">
               <Button size="sm" className="rounded-full gap-1.5 font-mono text-xs">
-                <span className="text-primary-foreground/80">$</span> get_in_touch
+                <Coffee className="h-3.5 w-3.5" /> let&apos;s talk
               </Button>
             </a>
             <ThemeToggle />
@@ -115,7 +115,7 @@ export function Navbar() {
               transition={{ duration: 0.25 }}
               className="md:hidden overflow-hidden"
             >
-              <div className="mt-2 rounded-2xl border border-border/70 bg-background/90 backdrop-blur-xl p-2 flex flex-col">
+              <div className="mt-2 rounded-2xl border border-border/70 bg-background/95 backdrop-blur-xl p-2 flex flex-col shadow-float">
                 {NAV_ITEMS.map((item) => (
                   <Link
                     key={item.href}

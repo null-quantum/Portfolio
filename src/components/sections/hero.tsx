@@ -1,20 +1,31 @@
 'use client'
 
 import * as React from "react"
-import { motion } from "framer-motion"
-import { ArrowRight, Github, Linkedin, MapPin, Sparkles } from "lucide-react"
+import dynamic from "next/dynamic"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { ArrowRight, Github, Linkedin, MapPin, Sparkles, Terminal } from "lucide-react"
 import { PROFILE, MARQUEE_ITEMS } from "@/lib/portfolio-data"
 import { Button } from "@/components/ui/button"
 
+// Lazy-load the 3D scene so it never blocks first paint.
+const Scene3D = dynamic(() => import("@/components/scene-3d").then((m) => m.Scene3D), {
+  ssr: false,
+  loading: () => (
+    <div className="grid place-items-center w-full h-full">
+      <div className="h-24 w-24 rounded-full border-2 border-dashed border-primary/40 animate-spin-slow" />
+    </div>
+  ),
+})
+
 const ROLES = [
-  "full-stack developer",
-  "TypeScript architect",
-  "real-time systems builder",
-  "UI/UX craftsperson",
-  "API designer",
+  "React & Next.js dev",
+  "animation tinkerer",
+  "3D-on-the-web curious",
+  "API builder",
+  "UI that feels alive",
 ]
 
-function useTypewriter(words: string[], typeSpeed = 80, deleteSpeed = 40, pause = 1600) {
+function useTypewriter(words: string[], typeSpeed = 75, deleteSpeed = 38, pause = 1500) {
   const [text, setText] = React.useState("")
   const [wordIndex, setWordIndex] = React.useState(0)
   const [deleting, setDeleting] = React.useState(false)
@@ -22,7 +33,6 @@ function useTypewriter(words: string[], typeSpeed = 80, deleteSpeed = 40, pause 
   React.useEffect(() => {
     const current = words[wordIndex % words.length]
     let timeout: ReturnType<typeof setTimeout>
-
     if (!deleting && text === current) {
       timeout = setTimeout(() => setDeleting(true), pause)
     } else if (deleting && text === "") {
@@ -46,14 +56,23 @@ function useTypewriter(words: string[], typeSpeed = 80, deleteSpeed = 40, pause 
 
 export function Hero() {
   const typed = useTypewriter(ROLES)
+  const { scrollY } = useScroll()
+  const blobY = useTransform(scrollY, [0, 600], [0, 120])
+  const sceneY = useTransform(scrollY, [0, 600], [0, -60])
 
   return (
-    <section id="top" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 -z-10 bg-grid opacity-40" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-transparent to-background" />
-      <div className="absolute top-1/4 left-1/4 -z-10 h-96 w-96 rounded-full bg-primary/20 blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 -z-10 h-72 w-72 rounded-full bg-chart-2/15 blur-[100px]" />
+    <section id="top" className="relative min-h-screen flex items-center pt-28 pb-24 overflow-hidden">
+      {/* Warm mesh background */}
+      <div className="absolute inset-0 -z-20 bg-mesh" />
+      <div className="absolute inset-0 -z-20 bg-grain opacity-50" />
+      <motion.div
+        style={{ y: blobY }}
+        className="absolute top-1/3 -left-20 -z-10 h-80 w-80 rounded-full bg-primary/25 blur-[110px] animate-blob"
+      />
+      <motion.div
+        style={{ y: blobY }}
+        className="absolute bottom-1/4 -right-10 -z-10 h-72 w-72 rounded-full bg-chart-2/20 blur-[100px] animate-blob"
+      />
 
       <div className="mx-auto max-w-6xl w-full px-4 grid lg:grid-cols-12 gap-10 items-center">
         {/* Left: intro */}
@@ -62,13 +81,13 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/60 backdrop-blur px-3 py-1 text-xs font-medium text-muted-foreground"
+            className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/70 backdrop-blur px-3 py-1 text-xs font-medium text-muted-foreground"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
             </span>
-            Available for new projects
+            Open to internships & freelance
           </motion.div>
 
           <motion.div
@@ -77,18 +96,14 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.05 }}
             className="space-y-3"
           >
-            <p className="font-mono text-sm text-primary">{`> whoami`}</p>
+            <p className="font-mono text-sm text-primary">hey, I&apos;m</p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
-              Hi, I&apos;m <span className="gradient-text">{PROFILE.name}</span>.
-              <br />
-              <span className="text-2xl sm:text-3xl lg:text-4xl text-muted-foreground font-semibold">
-                a{" "}
-              </span>
-              <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
-                {typed}
-                <span className="cursor-blink text-primary">▋</span>
-              </span>
+              <span className="gradient-text">{PROFILE.name}</span>
             </h1>
+            <p className="text-xl sm:text-2xl text-muted-foreground font-medium">
+              a <span className="text-foreground font-semibold">{typed}</span>
+              <span className="cursor-blink text-primary">▋</span>
+            </p>
           </motion.div>
 
           <motion.p
@@ -108,14 +123,14 @@ export function Hero() {
           >
             <a href="#projects">
               <Button size="lg" className="rounded-full gap-2 group">
-                Explore my work
+                See my projects
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
               </Button>
             </a>
             <a href="#playground">
               <Button size="lg" variant="outline" className="rounded-full gap-2">
                 <Sparkles className="h-4 w-4 text-primary" />
-                Try the live playground
+                Try the live demos
               </Button>
             </a>
             <div className="flex items-center gap-1">
@@ -143,40 +158,60 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: terminal card */}
+        {/* Right: 3D scene + floating avatar card */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+          style={{ y: sceneY }}
           className="lg:col-span-5"
         >
-          <div className="gradient-border scanline relative overflow-hidden shadow-2xl shadow-black/20">
-            <div className="flex items-center gap-2 border-b border-border/60 px-4 py-3 bg-muted/40">
-              <span className="h-3 w-3 rounded-full bg-red-400/80" />
-              <span className="h-3 w-3 rounded-full bg-amber-400/80" />
-              <span className="h-3 w-3 rounded-full bg-emerald-400/80" />
-              <span className="ml-2 font-mono text-xs text-muted-foreground">aarav@portfolio: ~/intro</span>
+          <div className="relative h-[360px] sm:h-[420px] scene-3d">
+            {/* 3D canvas layer */}
+            <div className="absolute inset-0">
+              <Scene3D />
             </div>
-            <div className="p-5 font-mono text-sm leading-relaxed space-y-1.5">
-              <p><span className="text-muted-foreground">$</span> <span className="text-primary">cat</span> profile.json</p>
-              <pre className="text-xs sm:text-[13px] leading-relaxed text-foreground/90 whitespace-pre-wrap">
-{`{
-  `}<span className="text-chart-3">"role"</span>{`: `}<span className="text-chart-2">"Full-Stack Developer"</span>{`,
-  `}<span className="text-chart-3">"stack"</span>{`: [`}<span className="text-chart-2">"Next.js"</span>{`, `}<span className="text-chart-2">"TS"</span>{`, `}<span className="text-chart-2">"Postgres"</span>{`],
-  `}<span className="text-chart-3">"focus"</span>{`: `}<span className="text-chart-2">"interactive UIs & APIs"</span>{`,
-  `}<span className="text-chart-3">"shipped"</span>{`: `}<span className="text-chart-4">40</span>{`+,
-  `}<span className="text-chart-3">"fun_fact"</span>{`: `}<span className="text-chart-2">"this site runs itself"</span>{`
-}`}
-              </pre>
-              <p className="pt-2"><span className="text-muted-foreground">$</span> <span className="text-primary">./run</span> portfolio<span className="cursor-blink text-primary">▋</span></p>
-              <p className="text-emerald-500">✓ compiled in 0.42s — welcome!</p>
-            </div>
+
+            {/* Floating avatar chip */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-2 left-0 flex items-center gap-3 rounded-2xl border border-border/70 bg-card/90 backdrop-blur p-2 pr-4 shadow-float"
+            >
+              <img
+                src="/avatar-dhruv.png"
+                alt="Illustrated avatar of Dhruvendra Patel"
+                width={44}
+                height={44}
+                className="h-11 w-11 rounded-xl object-cover"
+                loading="eager"
+              />
+              <div className="leading-tight">
+                <p className="text-xs font-semibold">{PROFILE.name}</p>
+                <p className="text-[11px] text-muted-foreground font-mono">v1.0 — always shipping</p>
+              </div>
+            </motion.div>
+
+            {/* Floating terminal chip */}
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+              className="absolute bottom-3 right-0 rounded-2xl border border-border/70 bg-card/90 backdrop-blur p-3 shadow-float font-mono text-[11px] max-w-[210px]"
+            >
+              <div className="flex items-center gap-1.5 mb-1.5 text-muted-foreground">
+                <Terminal className="h-3 w-3 text-primary" />
+                <span>stack.ts</span>
+              </div>
+              <p className="text-foreground/80">
+                <span className="text-primary">const</span> me = {"{"} react, next, ts, motion, r3d {"}"}
+              </p>
+            </motion.div>
           </div>
         </motion.div>
       </div>
 
       {/* Marquee */}
-      <div className="absolute bottom-0 inset-x-0 border-y border-border/40 bg-background/40 backdrop-blur-sm py-3 overflow-hidden">
+      <div className="absolute bottom-0 inset-x-0 border-y border-border/40 bg-background/50 backdrop-blur-sm py-3 overflow-hidden">
         <div className="flex gap-8 animate-marquee whitespace-nowrap">
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
             <span key={i} className="font-mono text-sm text-muted-foreground/70 flex items-center gap-2">

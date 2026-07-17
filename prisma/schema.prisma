@@ -39,3 +39,23 @@ model ContactMessage {
 
   @@index([createdAt])
 }
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  category    String
+  year        String
+  blurb       String
+  description String
+  tech        String   // pipe-separated list
+  highlights  String   // newline-separated list
+  demoUrl     String   @default("")
+  repoUrl     String   @default("")
+  accent      String   @default("oklch(0.7 0.15 70)")
+  thumbnail   String   @default("")
+  featured    Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  @@index([order])
+}

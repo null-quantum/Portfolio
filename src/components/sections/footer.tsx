@@ -1,27 +1,27 @@
 'use client'
 
-import { ArrowUp, Github, Linkedin, Mail, Terminal } from "lucide-react"
+import { ArrowUp, Github, Linkedin, Mail, Coffee } from "lucide-react"
 import { PROFILE, NAV_ITEMS } from "@/lib/portfolio-data"
 import { Button } from "@/components/ui/button"
 
 export function Footer() {
   const year = new Date().getFullYear()
   return (
-    <footer className="mt-auto border-t border-border/40 bg-background/60 backdrop-blur-sm">
+    <footer className="mt-auto border-t border-border/40 bg-muted/30 bg-grain">
       <div className="mx-auto max-w-6xl px-4 py-10">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2 space-y-3">
             <div className="flex items-center gap-2">
-              <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-                <Terminal className="h-4 w-4" />
+              <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground font-mono text-sm font-bold">
+                {PROFILE.shortName[0]}
               </span>
               <span className="font-mono text-sm font-semibold">
-                aarav<span className="text-primary">.dev</span>
+                {PROFILE.shortName}<span className="text-primary">.dev</span>
               </span>
             </div>
             <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
-              {PROFILE.bio}
+              {PROFILE.tagline} Built from scratch with Next.js, React, TypeScript, Tailwind, Framer Motion, React 3D & Prisma.
             </p>
             <div className="flex gap-1">
               <Button asChild variant="ghost" size="icon" className="h-9 w-9 rounded-full">
@@ -63,9 +63,9 @@ export function Footer() {
           <div>
             <p className="font-mono text-xs text-muted-foreground mb-3">{"// built with"}</p>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Next.js 16 · App Router</li>
-              <li>TypeScript · Tailwind 4</li>
-              <li>shadcn/ui · Framer Motion</li>
+              <li>Next.js · React · TypeScript</li>
+              <li>Tailwind · Framer Motion</li>
+              <li>React 3D (R3F) · three.js</li>
               <li>Prisma · SQLite</li>
             </ul>
           </div>
@@ -73,14 +73,9 @@ export function Footer() {
 
         <div className="mt-10 pt-6 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground font-mono text-center sm:text-left">
-            © {year} {PROFILE.name}. Designed & built from scratch with care.
+            © {year} {PROFILE.name}. Hand-built with <Coffee className="inline h-3 w-3 text-primary" /> and a lot of chai.
           </p>
-          <Button
-            asChild
-            variant="outline"
-            size="sm"
-            className="gap-1.5 rounded-full"
-          >
+          <Button asChild variant="outline" size="sm" className="gap-1.5 rounded-full">
             <a href="#top">
               <ArrowUp className="h-3.5 w-3.5" /> Back to top
             </a>

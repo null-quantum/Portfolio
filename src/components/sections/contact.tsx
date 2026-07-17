@@ -84,10 +84,10 @@ export function Contact() {
         >
           <p className="font-mono text-sm text-primary mb-2">{"// contact"}</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Let&apos;s build something <span className="gradient-text">together.</span>
+            Say hi, or <span className="gradient-text">let&apos;s work together.</span>
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Have a project, a role, or just want to say hi? Drop a line — I read everything.
+            Internships, freelance, a collab, or just web-dev talk — my inbox is open. I usually reply within a day.
           </p>
         </motion.div>
 
@@ -104,7 +104,7 @@ export function Contact() {
               <div>
                 <h3 className="font-semibold mb-1">Reach me directly</h3>
                 <p className="text-sm text-muted-foreground">
-                  Prefer email? I reply within 1-2 business days.
+                  Email is best — I reply within a day.
                 </p>
               </div>
               <div className="space-y-3">
@@ -146,8 +146,7 @@ export function Contact() {
             <Card className="p-5 bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
               <p className="font-mono text-xs text-primary mb-1">$ status --availability</p>
               <p className="text-sm">
-                Currently <span className="font-semibold text-primary">accepting</span> freelance &
-                full-time opportunities.
+                Open to <span className="font-semibold text-primary">internships, freelance & collabs</span> — especially anything with animation or 3D.
               </p>
             </Card>
           </motion.div>

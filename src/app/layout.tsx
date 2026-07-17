@@ -20,13 +20,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aarav Sharma — Full-Stack Developer & Portfolio",
-  description: "Interactive developer portfolio showcasing full-stack projects like NutriFit Platform, programming language fluency, and live working web demos built with Next.js, TypeScript, and modern tooling.",
-  keywords: ["Full-Stack Developer", "Portfolio", "NutriFit Platform", "Next.js", "TypeScript", "React", "Web Development"],
-  authors: [{ name: "Aarav Sharma" }],
+  title: "Dhruvendra Patel — Developer Portfolio",
+  description: "Dhruvendra Patel builds interactive, animated web apps with Next.js, React, TypeScript, Framer Motion, 3D and Prisma. Explore projects like the NutriFit Platform and try the live demos.",
+  keywords: ["Dhruvendra Patel", "dhruv", "developer portfolio", "Next.js", "React", "TypeScript", "Framer Motion", "React 3D", "Prisma", "NutriFit"],
+  authors: [{ name: "Dhruvendra Patel" }],
   openGraph: {
-    title: "Aarav Sharma — Full-Stack Developer",
-    description: "Interactive portfolio with live code demos and project showcases.",
+    title: "Dhruvendra Patel — Developer Portfolio",
+    description: "Interactive projects, live code demos, and a 3D playground built with Next.js, React & TypeScript.",
     type: "website",
   },
 };
@@ -43,8 +43,8 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           {children}

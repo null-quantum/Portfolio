@@ -20,206 +20,189 @@ type Sample = {
 
 const SAMPLES: Sample[] = [
   {
-    id: "ts",
-    label: "TypeScript",
+    id: "next",
+    label: "Next.js API",
     lang: "typescript",
-    filename: "lib/macros.ts",
-    desc: "Type-safe macro calculator — the engine behind the playground above.",
-    code: `type Sex = "male" | "female"
-type Goal = "cut" | "maintain" | "bulk"
+    filename: "app/api/meals/route.ts",
+    desc: "A typed route handler that logs a meal with validation — the kind of endpoint NutriFit uses.",
+    code: `import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { db } from "@/lib/db";
+
+const schema = z.object({
+  name: z.string().min(1).max(80),
+  kcal: z.number().min(0).max(5000),
+  protein: z.number().min(0),
+  carbs: z.number().min(0),
+  fat: z.number().min(0),
+  loggedAt: z.string().datetime().optional(),
+});
+
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const parsed = schema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { ok: false, error: parsed.error.issues[0]?.message },
+      { status: 400 }
+    );
+  }
+
+  const meal = await db.meal.create({
+    data: {
+      ...parsed.data,
+      loggedAt: parsed.data.loggedAt ?? new Date().toISOString(),
+    },
+  });
+
+  return NextResponse.json({ ok: true, id: meal.id });
+}`,
+  },
+  {
+    id: "zustand",
+    label: "React + Zustand",
+    lang: "tsx",
+    filename: "store/useMacroStore.ts",
+    desc: "A Zustand store for macro goals with a small React hook — the state behind the playground calculator.",
+    code: `import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface Stats {
-  age: number      // years
-  height: number   // cm
-  weight: number   // kg
-  sex: Sex
-  activity: number // TDEE multiplier
-  goal: Goal
+  age: number;
+  height: number; // cm
+  weight: number; // kg
+  sex: "male" | "female";
+  activity: number;
+  goal: "cut" | "maintain" | "bulk";
 }
 
-interface Macros {
-  calories: number
-  protein: number // grams
-  carbs: number   // grams
-  fat: number     // grams
-  bmi: number
+interface MacroState extends Stats {
+  set: (patch: Partial<Stats>) => void;
+  reset: () => void;
 }
 
-/** Mifflin-St Jeor basal metabolic rate. */
-export function bmr(s: Stats): number {
-  const base = 10 * s.weight + 6.25 * s.height - 5 * s.age
-  return s.sex === "male" ? base + 5 : base - 161
+export const useMacroStore = create<MacroState>()(
+  persist(
+    (set) => ({
+      age: 22,
+      height: 175,
+      weight: 72,
+      sex: "male",
+      activity: 1.55,
+      goal: "maintain",
+      set: (patch) => set(patch),
+      reset: () =>
+        set({ age: 22, height: 175, weight: 72, sex: "male", activity: 1.55, goal: "maintain" }),
+    }),
+    { name: "macro-store" }
+  )
+);
+
+// Mifflin-St Jeor, the same formula NutriFit uses
+export function bmr(s: Stats) {
+  const base = 10 * s.weight + 6.25 * s.height - 5 * s.age;
+  return s.sex === "male" ? base + 5 : base - 161;
 }
 
-/** Total daily energy expenditure. */
-export const tdee = (s: Stats): number => bmr(s) * s.activity
-
-/** Target calories adjusted for the user's goal. */
-export function target(s: Stats): number {
-  const offset = s.goal === "cut" ? -450 : s.goal === "bulk" ? 350 : 0
-  return tdee(s) + offset
-}
-
-/** Protein 1.8 g/kg, fat 25% of cals, remainder carbs. */
-export function macros(s: Stats): Macros {
-  const calories = target(s)
-  const protein = Math.round(s.weight * 1.8)
-  const fat = Math.round((calories * 0.25) / 9)
-  const carbs = Math.round((calories - protein * 4 - fat * 9) / 4)
-  const bmi = s.weight / Math.pow(s.height / 100, 2)
-  return { calories, protein, carbs, fat, bmi }
+export function target(s: Stats) {
+  const offset = s.goal === "cut" ? -450 : s.goal === "bulk" ? 350 : 0;
+  return bmr(s) * s.activity + offset;
 }`,
   },
   {
-    id: "py",
-    label: "Python",
-    lang: "python",
-    filename: "nutrition/foods.py",
-    desc: "FastAPI endpoint that scores a meal against a user's macro goals.",
-    code: `from dataclasses import dataclass
-from fastapi import FastAPI, HTTPException
-
-app = FastAPI(title="NutriFit API")
-
-@dataclass(slots=True)
-class Meal:
-    name: str
-    kcal: float
-    protein: float
-    carbs: float
-    fat: float
-
-GOALS = {"kcal": 2200, "protein": 130, "carbs": 250, "fat": 70}
-
-def score(meal: Meal, goals: dict[str, float]) -> float:
-    """0-100 adherence score: lower deviation = higher score."""
-    penalties = []
-    for key, goal in goals.items():
-        ratio = getattr(meal, key) / goal
-        # penalize both under- and over-shoot, capped at 1.0
-        penalties.append(min(abs(1 - ratio), 1.0))
-    avg_penalty = sum(penalties) / len(penalties)
-    return round((1 - avg_penalty) * 100, 1)
-
-@app.post("/meals/score")
-def score_meal(meal: Meal) -> dict:
-    if meal.kcal <= 0:
-        raise HTTPException(400, "kcal must be positive")
-    return {"meal": meal.name, "score": score(meal, GOALS)}
-
-# >>> POST /meals/score  {"name":"oats","kcal":420,"protein":14,"carbs":68,"fat":8}
-# <<< {"meal":"oats","score":87.4}`,
-  },
-  {
-    id: "go",
-    label: "Go",
-    lang: "go",
-    filename: "ledger/transfer.go",
-    desc: "Idempotent double-entry transfer — the heart of LedgerLite.",
-    code: `package ledger
-
-import (
-        "context"
-        "crypto/sha256"
-        "encoding/hex"
-        "errors"
-)
-
-var ErrInsufficient = errors.New("insufficient funds")
-
-// Transfer moves amount atomically from one account to another.
-// Idempotency is enforced via (key, hash) deduplication.
-func (s *Store) Transfer(ctx context.Context, from, to, amount int64, idemKey string) error {
-        hash := fingerprint(from, to, amount)
-
-        return s.tx(ctx, func(q *Queries) error {
-                // already processed? short-circuit
-                seen, err := q.SeenIdempotency(ctx, idemKey, hash)
-                if err != nil {
-                        return err
-                }
-                if seen {
-                        return nil
-                }
-
-                bal, err := q.Balance(ctx, from)
-                if err != nil {
-                        return err
-                }
-                if bal < amount {
-                        return ErrInsufficient
-                }
-
-                // two entries, one movement — double entry in one tx
-                if err := q.Debit(ctx, from, amount); err != nil {
-                        return err
-                }
-                if err := q.Credit(ctx, to, amount); err != nil {
-                        return err
-                }
-                return q.RecordIdempotency(ctx, idemKey, hash)
-        })
+    id: "prisma",
+    label: "Prisma",
+    lang: "prisma",
+    filename: "prisma/schema.prisma",
+    desc: "The NutriFit data model — foods, meals, goals and progress, all related and typed.",
+    code: `generator client {
+  provider = "prisma-client-js"
 }
 
-func fingerprint(parts ...any) string {
-        h := sha256.New()
-        fmt.Fprint(h, parts...)
-        return hex.EncodeToString(h.Sum(nil))
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Food {
+  id       String  @id @default(cuid())
+  name     String
+  kcal     Float
+  protein  Float
+  carbs    Float
+  fat      Float
+  meals    Meal[]
+}
+
+model Meal {
+  id        String   @id @default(cuid())
+  name      String
+  kcal      Float
+  protein   Float
+  carbs     Float
+  fat       Float
+  loggedAt  DateTime @default(now())
+  foodId    String?
+  food      Food?    @relation(fields: [foodId], references: [id])
+
+  @@index([loggedAt])
+}
+
+model Goal {
+  id        String  @id @default(cuid())
+  kcal      Float
+  protein   Float
+  carbs     Float
+  fat       Float
+  active    Boolean @default(true)
 }`,
   },
   {
-    id: "rust",
-    label: "Rust",
-    lang: "rust",
-    filename: "src/uptime.rs",
-    desc: "Zero-allocation HTTP probe for EdgePing's distributed monitors.",
-    code: `use std::time::{Duration, Instant};
+    id: "motion",
+    label: "Framer Motion",
+    lang: "tsx",
+    filename: "components/TiltCard.tsx",
+    desc: "A reusable tilt-on-hover card with spring physics — the same idea powering the project cards above.",
+    code: `import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { ReactNode } from "react";
 
-/// Outcome of a single probe against a target URL.
-#[derive(Debug)]
-pub struct ProbeResult {
-    pub url: String,
-    pub status: u16,
-    pub latency: Duration,
-    pub ok: bool,
-}
+export function TiltCard({ children }: { children: ReactNode }) {
+  // raw pointer position (0 → 1)
+  const x = useMotionValue(0.5);
+  const y = useMotionValue(0.5);
 
-/// Run a probe with a hard timeout. Returns immediately on failure.
-pub async fn probe(url: &str, timeout: Duration) -> ProbeResult {
-    let start = Instant::now();
-    let client = reqwest::Client::builder()
-        .timeout(timeout)
-        .build()
-        .expect("client build");
+  // springy smoothing so it eases instead of snapping
+  const sx = useSpring(x, { stiffness: 200, damping: 18 });
+  const sy = useSpring(y, { stiffness: 200, damping: 18 });
 
-    match client.get(url).send().await {
-        Ok(resp) => {
-            let status = resp.status().as_u16();
-            ProbeResult {
-                url: url.to_string(),
-                status,
-                latency: start.elapsed(),
-                ok: status >= 200 && status < 400,
-            }
-        }
-        Err(_) => ProbeResult {
-            url: url.to_string(),
-            status: 0,
-            latency: start.elapsed(),
-            ok: false,
-        },
-    }
-}
+  // map 0..1 to a small rotation
+  const rotateX = useTransform(sy, [0, 1], [10, -10]);
+  const rotateY = useTransform(sx, [0, 1], [-10, 10]);
 
-// 8-region fan-out with tokio::join_all — ~4MB resident per probe.
-// pub async fn fan_out(targets: &[&str]) -> Vec<ProbeResult> { ... }`,
+  return (
+    <motion.div
+      onMouseMove={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        x.set((e.clientX - r.left) / r.width);
+        y.set((e.clientY - r.top) / r.height);
+      }}
+      onMouseLeave={() => {
+        x.set(0.5);
+        y.set(0.5);
+      }}
+      style={{ rotateX, rotateY, transformPerspective: 900 }}
+      className="rounded-2xl border bg-card p-6 shadow-float"
+    >
+      {children}
+    </motion.div>
+  );
+}`,
   },
 ]
 
 export function CodeShowcase() {
   const [active, setActive] = React.useState(SAMPLES[0].id)
   const [copied, setCopied] = React.useState(false)
-
   const sample = SAMPLES.find((s) => s.id === active)!
 
   const copy = async () => {
@@ -245,11 +228,11 @@ export function CodeShowcase() {
           <div className="space-y-2">
             <p className="font-mono text-sm text-primary">{"// code"}</p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              Same idea, <span className="gradient-text">four languages.</span>
+              Real snippets, <span className="gradient-text">my real stack.</span>
             </h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-sm">
-            Real production snippets — not hello-world. Each solves a problem from a project above.
+            Each one is the actual pattern behind a piece of this site or NutriFit. Copy whatever helps.
           </p>
         </motion.div>
 
@@ -262,20 +245,11 @@ export function CodeShowcase() {
                 </TabsTrigger>
               ))}
             </TabsList>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={copy}
-              className="gap-1.5 shrink-0"
-            >
+            <Button size="sm" variant="outline" onClick={copy} className="gap-1.5 shrink-0">
               {copied ? (
-                <>
-                  <Check className="h-3.5 w-3.5 text-emerald-500" /> Copied
-                </>
+                <><Check className="h-3.5 w-3.5 text-emerald-500" /> Copied</>
               ) : (
-                <>
-                  <Copy className="h-3.5 w-3.5" /> Copy
-                </>
+                <><Copy className="h-3.5 w-3.5" /> Copy</>
               )}
             </Button>
           </div>
@@ -287,7 +261,7 @@ export function CodeShowcase() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <Card className="overflow-hidden">
+                <Card className="overflow-hidden shadow-float">
                   <div className="flex items-center justify-between border-b border-border/60 bg-muted/40 px-4 py-2.5">
                     <div className="flex items-center gap-2">
                       <Code2 className="h-3.5 w-3.5 text-primary" />

@@ -4,7 +4,6 @@ import * as React from "react"
 import { motion } from "framer-motion"
 import { SKILL_GROUPS } from "@/lib/portfolio-data"
 import { Card } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
 
 function SkillBar({
   skill,
@@ -35,10 +34,7 @@ function SkillBar({
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-y-0 left-0 rounded-full"
-          style={{
-            background: `linear-gradient(90deg, ${color}, ${color})`,
-            boxShadow: `0 0 12px ${color}55`,
-          }}
+          style={{ background: `linear-gradient(90deg, ${color}, ${color})`, boxShadow: `0 0 10px ${color}55` }}
         />
       </div>
       <motion.p
@@ -52,10 +48,15 @@ function SkillBar({
   )
 }
 
+const STACK_PILLS = [
+  "Next.js", "React", "TypeScript", "Tailwind CSS", "HTML", "CSS", "JavaScript",
+  "Node.js", "Framer Motion", "React 3D", "Zustand", "Prisma", "SQLite", "REST API",
+]
+
 export function Skills() {
   return (
-    <section id="skills" className="relative py-24 sm:py-28 border-y border-border/40 bg-muted/20">
-      <div className="absolute inset-0 bg-dots opacity-30 pointer-events-none" />
+    <section id="skills" className="relative py-24 sm:py-28 border-y border-border/40 bg-muted/30">
+      <div className="absolute inset-0 bg-grain opacity-40 pointer-events-none" />
       <div className="mx-auto max-w-6xl px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -64,12 +65,12 @@ export function Skills() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-2xl mx-auto mb-14"
         >
-          <p className="font-mono text-sm text-primary mb-2">{"// skills"}</p>
+          <p className="font-mono text-sm text-primary mb-2">{"// what I work with"}</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            The toolbox, <span className="gradient-text">by category</span>
+            The stack I&apos;ve <span className="gradient-text">actually learned</span>
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Hover any bar to see how I actually use each tool day to day.
+            Hover a bar to see how I tend to use each one. No buzzword padding — these are the tools I reach for.
           </p>
         </motion.div>
 
@@ -84,18 +85,18 @@ export function Skills() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, delay: gi * 0.08 }}
               >
-                <Card className="p-6 h-full hover:border-primary/30 transition-colors">
+                <Card className="p-6 h-full card-lift hover:border-primary/30">
                   <div className="flex items-center gap-3 mb-6">
                     <span
                       className="grid h-10 w-10 place-items-center rounded-xl"
-                      style={{ backgroundColor: `${group.color}1a`, color: group.color }}
+                      style={{ backgroundColor: `${group.color}1f`, color: group.color }}
                     >
                       <Icon className="h-5 w-5" />
                     </span>
                     <div>
                       <h3 className="font-semibold">{group.category}</h3>
                       <p className="text-xs text-muted-foreground font-mono">
-                        {group.skills.length} core tools
+                        {group.skills.length} tools
                       </p>
                     </div>
                   </div>
@@ -115,7 +116,7 @@ export function Skills() {
           })}
         </div>
 
-        {/* Language fluency strip */}
+        {/* Quick stack pills */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -124,45 +125,22 @@ export function Skills() {
           className="mt-8"
         >
           <Card className="p-6">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
-              <div className="sm:w-48 shrink-0">
-                <h3 className="font-semibold flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                  Language fluency
-                </h3>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Lines I&apos;m comfortable writing without docs.
-                </p>
-              </div>
-              <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-                {[
-                  { lang: "TypeScript", yrs: "4y", pct: 95 },
-                  { lang: "Python", yrs: "5y", pct: 82 },
-                  { lang: "Go", yrs: "2y", pct: 68 },
-                  { lang: "Rust", yrs: "1y", pct: 55 },
-                  { lang: "SQL", yrs: "6y", pct: 88 },
-                  { lang: "Bash", yrs: "6y", pct: 75 },
-                ].map((l) => (
-                  <div
-                    key={l.lang}
-                    className={cn(
-                      "rounded-xl border border-border/60 bg-background/60 p-3 hover:border-primary/40 transition-colors text-center"
-                    )}
-                  >
-                    <div className="font-mono text-sm font-semibold">{l.lang}</div>
-                    <div className="text-[11px] text-muted-foreground">{l.yrs}</div>
-                    <div className="mt-2 h-1 rounded-full bg-muted overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${l.pct}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: 0.3 }}
-                        className="h-full rounded-full bg-primary"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <p className="font-mono text-xs text-muted-foreground mb-3 text-center">
+              {"// the full list, in one breath"}
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {STACK_PILLS.map((p, i) => (
+                <motion.span
+                  key={p}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.03 }}
+                  className="rounded-full border border-border/60 bg-background/60 px-3 py-1 text-xs font-mono hover:border-primary/50 hover:text-primary transition-colors cursor-default"
+                >
+                  {p}
+                </motion.span>
+              ))}
             </div>
           </Card>
         </motion.div>
