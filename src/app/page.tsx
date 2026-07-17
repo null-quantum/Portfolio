@@ -1,0 +1,27 @@
+import { Navbar } from "@/components/sections/navbar"
+import { Hero } from "@/components/sections/hero"
+import { About } from "@/components/sections/about"
+import { Skills } from "@/components/sections/skills"
+import { Projects } from "@/components/sections/projects"
+import { Playground } from "@/components/sections/playground"
+import { CodeShowcase } from "@/components/sections/code-showcase"
+import { Contact } from "@/components/sections/contact"
+import { Footer } from "@/components/sections/footer"
+
+export default function Home() {
+  return (
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <Navbar />
+      <main className="flex-1">
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Playground />
+        <CodeShowcase />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  )
+}
