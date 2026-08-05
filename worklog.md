@@ -162,3 +162,28 @@ Stage Summary:
 - 3 blendable palettes wired into fonts (gradient-text) + buttons (btn-blend) via CSS vars, switchable from navbar
 - Old whileInView-once animations replaced with scroll-direction-aware Reveal (fade+blur in/out)
 - 3D sphere replaced by looping 2D AI/resume/code showcase, 6s each, palette-aware
+
+---
+Task ID: 28-30
+Agent: main
+Task: Fix orange NutriFit image + enhance magenta palette + replace sunset palette
+
+Work Log:
+- Diagnosed "left still orange": NutriFit image had orange baked in (ring, "NUTRITION" text, carrots) AND project accent was marigold (oklch 0.68 0.16 55) — both stayed orange regardless of global palette switch
+- Regenerated /public/project-nutrifit.png: floating-scene SaaS style matching Expense Tracker (central plate + floating UI cards: calorie ring, macro bar chart, leaf icon, heart pulse). Green/teal/sage dominant, NO orange, neutral cream background. VLM confirmed: green/teal dominant, no prominent orange, no Asian chars, English only (Cal, Macros)
+- Changed NutriFit project accent: marigold oklch(0.68 0.16 55) → sage green oklch(0.58 0.13 140). Re-seeded DB.
+- Enhanced "Neon" palette → "Amethyst (Violet · Purple · Magenta)": hues 280/315/345 (analogous purples) so the gradient blends smoothly through violet→purple→magenta without clashing. VLM rated 8-9/10, "definitely better than a standard neon palette"
+- Replaced "Sunset" palette → "Ocean (Cyan · Azure · Indigo)": hues 200/230/260 (analogous blues), smooth professional cool gradient. VLM rated 9/10 harmony & professionalism
+- Reset DB, restarted dev server, re-seeded both projects
+
+Verification (Agent Browser + VLM):
+- NutriFit headline color = oklch(0.58 0.13 140) (sage green, NOT orange) ✓
+- NutriFit image: green/teal dominant, no clashing orange, floating-scene SaaS style ✓
+- Amethyst palette: primary=purple, charts violet/purple/magenta, gradient blends smoothly ✓
+- Ocean palette: primary=azure, charts cyan/azure/indigo, gradient smooth ✓
+- Lint clean, page 200
+
+Stage Summary:
+- NutriFit card no longer orange (image + accent both green now), matches Expense Tracker style/quality
+- Magenta palette enhanced into a proper violet/purple/magenta spectrum (Amethyst) that blends well
+- Sunset replaced with Ocean (cyan/azure/indigo) — clean, professional, high-rated

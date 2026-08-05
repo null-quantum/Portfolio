@@ -103,7 +103,7 @@ export const PROJECT_SEEDS: SeedProject[] = [
     tech: ["React.js", "TypeScript", "Node.js", "Express.js", "PostgreSQL", "Tailwind CSS"],
     demoUrl: "#",
     repoUrl: "#",
-    accent: "oklch(0.68 0.16 55)",
+    accent: "oklch(0.58 0.13 140)",
     thumbnail: "/project-nutrifit.png",
     featured: true,
     order: 0,

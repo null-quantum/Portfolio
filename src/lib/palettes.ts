@@ -1,6 +1,9 @@
 // Three blendable color palettes. Each sets primary/ring/accent + the three
 // chart colors used by gradient text and the 2D animated showcase.
 // The active palette is applied to :root as CSS custom properties.
+//
+// Hues are chosen to be ANALOGOUS (close on the color wheel) so the
+// gradient-text and btn-blend blend smoothly without muddy transitions.
 
 export type Palette = {
   id: string
@@ -32,9 +35,9 @@ export const PALETTES: Palette[] = [
     name: "Aurora (Jade · Teal · Peacock)",
     swatch: ["oklch(0.62 0.14 160)", "oklch(0.6 0.11 190)", "oklch(0.5 0.14 240)"],
     vars: build(
-      "oklch(0.62 0.14 160)", // jade
-      "oklch(0.6 0.11 190)",  // teal
-      "oklch(0.5 0.14 240)",  // peacock blue
+      "oklch(0.62 0.14 160)", // jade (hue 160)
+      "oklch(0.6 0.11 190)",  // teal (hue 190)
+      "oklch(0.5 0.14 240)",  // peacock blue (hue 240)
       "oklch(0.58 0.12 185)", // primary = teal
       "oklch(0.99 0.01 180)",
       "oklch(0.9 0.05 175)",
@@ -43,33 +46,38 @@ export const PALETTES: Palette[] = [
     ),
   },
   {
-    id: "neon",
-    name: "Neon (Crimson · Magenta · Violet)",
-    swatch: ["oklch(0.55 0.22 25)", "oklch(0.6 0.25 340)", "oklch(0.55 0.2 290)"],
+    // Enhanced "Neon" → Amethyst: a smooth violet → purple → magenta → lavender
+    // spectrum. All hues sit between 280–350° so the gradient blends cleanly
+    // through the purple family without clashing.
+    id: "amethyst",
+    name: "Amethyst (Violet · Purple · Magenta)",
+    swatch: ["oklch(0.55 0.2 280)", "oklch(0.58 0.22 315)", "oklch(0.6 0.2 345)"],
     vars: build(
-      "oklch(0.55 0.22 25)",  // crimson
-      "oklch(0.6 0.25 340)",  // magenta
-      "oklch(0.55 0.2 290)",  // violet
-      "oklch(0.58 0.24 335)", // primary = magenta
-      "oklch(0.99 0.01 340)",
-      "oklch(0.92 0.06 330)",
-      "oklch(0.32 0.08 320)",
-      "oklch(0.58 0.24 335)"
+      "oklch(0.55 0.2 280)",  // violet (hue 280)
+      "oklch(0.58 0.22 315)", // purple (hue 315)
+      "oklch(0.6 0.2 345)",   // magenta (hue 345)
+      "oklch(0.58 0.22 315)", // primary = purple
+      "oklch(0.99 0.01 320)",
+      "oklch(0.92 0.06 315)",
+      "oklch(0.34 0.1 300)",
+      "oklch(0.58 0.22 315)"
     ),
   },
   {
-    id: "sunset",
-    name: "Sunset (Amber · Coral · Rose)",
-    swatch: ["oklch(0.75 0.15 75)", "oklch(0.68 0.18 40)", "oklch(0.65 0.2 15)"],
+    // Replaced "Sunset" → Ocean: a cool, professional cyan → azure → indigo
+    // gradient. Smooth analogous blues that look clean on the cream background.
+    id: "ocean",
+    name: "Ocean (Cyan · Azure · Indigo)",
+    swatch: ["oklch(0.62 0.12 200)", "oklch(0.55 0.16 230)", "oklch(0.48 0.18 260)"],
     vars: build(
-      "oklch(0.75 0.15 75)",  // amber
-      "oklch(0.68 0.18 40)",  // coral
-      "oklch(0.65 0.2 15)",   // rose
-      "oklch(0.66 0.19 40)",  // primary = coral
-      "oklch(0.99 0.01 60)",
-      "oklch(0.92 0.06 45)",
-      "oklch(0.32 0.08 30)",
-      "oklch(0.66 0.19 40)"
+      "oklch(0.62 0.12 200)", // cyan (hue 200)
+      "oklch(0.55 0.16 230)", // azure (hue 230)
+      "oklch(0.48 0.18 260)", // indigo (hue 260)
+      "oklch(0.55 0.16 230)", // primary = azure
+      "oklch(0.99 0.01 230)",
+      "oklch(0.92 0.05 225)",
+      "oklch(0.32 0.08 240)",
+      "oklch(0.55 0.16 230)"
     ),
   },
 ]
