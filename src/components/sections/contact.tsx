@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
+import { Reveal } from "@/components/reveal"
 
 type Status = "idle" | "loading" | "success" | "error"
 
@@ -61,13 +62,7 @@ export function Contact() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-primary/10 blur-[120px] -z-10" />
 
       <div className="mx-auto max-w-5xl px-4 relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-2xl mx-auto mb-12"
-        >
+        <Reveal direction="up" className="text-center max-w-2xl mx-auto mb-12">
           <p className="font-mono text-sm text-primary mb-2">{"// contact"}</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             Let&apos;s <span className="gradient-text">talk.</span>
@@ -75,17 +70,11 @@ export function Contact() {
           <p className="mt-3 text-muted-foreground">
             Hiring for a junior role, or just want to chat about a project? My inbox is open.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="grid lg:grid-cols-5 gap-6">
           {/* Info side */}
-          <motion.div
-            initial={{ opacity: 0, x: -16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5 }}
-            className="lg:col-span-2 space-y-4"
-          >
+          <Reveal direction="left" className="lg:col-span-2 space-y-4">
             <Card className="p-6 space-y-5">
               <div>
                 <h3 className="font-semibold mb-1">Reach me directly</h3>
@@ -133,16 +122,10 @@ export function Contact() {
                 Open to <span className="font-semibold text-primary">junior developer roles</span> at startups &amp; MNCs — internships and full-time.
               </p>
             </Card>
-          </motion.div>
+          </Reveal>
 
           {/* Form side */}
-          <motion.div
-            initial={{ opacity: 0, x: 16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5 }}
-            className="lg:col-span-3"
-          >
+          <Reveal direction="right" className="lg:col-span-3">
             <Card className="p-6 sm:p-8">
               <form onSubmit={onSubmit} className="space-y-4">
                 <div className="space-y-2">
@@ -188,7 +171,7 @@ export function Contact() {
                 </p>
               </form>
             </Card>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>

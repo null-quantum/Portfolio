@@ -45,38 +45,41 @@
 
 :root {
   --radius: 0.875rem;
-  /* Warm paper light theme — marigold + teal on cream. Deliberately not white/black. */
+  /* Warm paper light theme — deliberately not white/black. */
   --background: oklch(0.975 0.012 82);
   --foreground: oklch(0.26 0.025 55);
   --card: oklch(0.992 0.006 85);
   --card-foreground: oklch(0.26 0.025 55);
   --popover: oklch(0.992 0.006 85);
   --popover-foreground: oklch(0.26 0.025 55);
-  --primary: oklch(0.68 0.16 55);          /* marigold amber */
-  --primary-foreground: oklch(0.99 0.01 85);
   --secondary: oklch(0.93 0.025 75);
   --secondary-foreground: oklch(0.34 0.03 55);
   --muted: oklch(0.94 0.012 80);
   --muted-foreground: oklch(0.5 0.025 60);
-  --accent: oklch(0.88 0.05 175);          /* soft teal tint */
-  --accent-foreground: oklch(0.3 0.06 190);
   --destructive: oklch(0.58 0.22 25);
   --border: oklch(0.88 0.018 70);
   --input: oklch(0.9 0.018 70);
-  --ring: oklch(0.68 0.16 55);
-  --chart-1: oklch(0.68 0.16 55);          /* marigold */
-  --chart-2: oklch(0.55 0.1 190);          /* teal */
-  --chart-3: oklch(0.58 0.13 140);         /* sage */
-  --chart-4: oklch(0.62 0.18 15);          /* terracotta */
-  --chart-5: oklch(0.52 0.12 290);         /* plum */
+  --chart-4: oklch(0.62 0.18 15);
+  --chart-5: oklch(0.52 0.12 290);
   --sidebar: oklch(0.97 0.012 82);
   --sidebar-foreground: oklch(0.26 0.025 55);
-  --sidebar-primary: oklch(0.68 0.16 55);
-  --sidebar-primary-foreground: oklch(0.99 0.01 85);
   --sidebar-accent: oklch(0.88 0.05 175);
   --sidebar-accent-foreground: oklch(0.3 0.06 190);
   --sidebar-border: oklch(0.88 0.018 70);
-  --sidebar-ring: oklch(0.68 0.16 55);
+
+  /* === Palette: Aurora (Jade · Teal · Peacock) — default ===
+     Overridden at runtime by the palette switcher. */
+  --primary: oklch(0.58 0.12 185);
+  --primary-foreground: oklch(0.99 0.01 180);
+  --ring: oklch(0.58 0.12 185);
+  --accent: oklch(0.9 0.05 175);
+  --accent-foreground: oklch(0.3 0.06 190);
+  --chart-1: oklch(0.62 0.14 160);
+  --chart-2: oklch(0.6 0.11 190);
+  --chart-3: oklch(0.5 0.14 240);
+  --sidebar-primary: oklch(0.58 0.12 185);
+  --sidebar-primary-foreground: oklch(0.99 0.01 180);
+  --sidebar-ring: oklch(0.58 0.12 185);
 }
 
 .dark {
@@ -87,31 +90,33 @@
   --card-foreground: oklch(0.94 0.012 85);
   --popover: oklch(0.29 0.018 55);
   --popover-foreground: oklch(0.94 0.012 85);
-  --primary: oklch(0.78 0.15 65);
-  --primary-foreground: oklch(0.24 0.015 55);
   --secondary: oklch(0.34 0.02 55);
   --secondary-foreground: oklch(0.94 0.012 85);
   --muted: oklch(0.32 0.015 55);
   --muted-foreground: oklch(0.7 0.02 70);
-  --accent: oklch(0.38 0.05 180);
-  --accent-foreground: oklch(0.85 0.1 175);
   --destructive: oklch(0.7 0.19 22);
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.78 0.15 65);
-  --chart-1: oklch(0.78 0.15 65);
-  --chart-2: oklch(0.7 0.12 190);
-  --chart-3: oklch(0.72 0.14 140);
   --chart-4: oklch(0.72 0.18 15);
   --chart-5: oklch(0.68 0.15 290);
   --sidebar: oklch(0.26 0.015 55);
   --sidebar-foreground: oklch(0.94 0.012 85);
-  --sidebar-primary: oklch(0.78 0.15 65);
-  --sidebar-primary-foreground: oklch(0.24 0.015 55);
   --sidebar-accent: oklch(0.34 0.02 55);
   --sidebar-accent-foreground: oklch(0.85 0.1 175);
   --sidebar-border: oklch(1 0 0 / 12%);
-  --sidebar-ring: oklch(0.78 0.15 65);
+
+  /* Palette applied at runtime overrides these too, but brighten slightly for dark. */
+  --primary: oklch(0.7 0.13 185);
+  --primary-foreground: oklch(0.2 0.02 185);
+  --ring: oklch(0.7 0.13 185);
+  --accent: oklch(0.38 0.05 180);
+  --accent-foreground: oklch(0.85 0.1 175);
+  --chart-1: oklch(0.7 0.14 160);
+  --chart-2: oklch(0.68 0.12 190);
+  --chart-3: oklch(0.62 0.15 240);
+  --sidebar-primary: oklch(0.7 0.13 185);
+  --sidebar-primary-foreground: oklch(0.2 0.02 185);
+  --sidebar-ring: oklch(0.7 0.13 185);
 }
 
 @layer base {
@@ -136,14 +141,15 @@
 ::-webkit-scrollbar { width: 11px; height: 11px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: oklch(0.68 0.16 55 / 0.35);
+  background: var(--ring);
+  opacity: 0.35;
   border-radius: 9999px;
   border: 3px solid transparent;
   background-clip: content-box;
 }
-::-webkit-scrollbar-thumb:hover { background: oklch(0.68 0.16 55 / 0.6); background-clip: content-box; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary); background-clip: content-box; }
 
-/* Paper grain texture — subtle, crafted feel */
+/* Paper grain texture */
 .bg-grain {
   background-image:
     radial-gradient(oklch(0.5 0.05 60 / 0.04) 1px, transparent 1px),
@@ -160,21 +166,35 @@
   background-size: 52px 52px;
 }
 
-/* Warm mesh gradient */
+/* Warm mesh gradient — uses palette colors so it shifts with the palette */
 .bg-mesh {
   background:
-    radial-gradient(at 18% 22%, oklch(0.68 0.16 55 / 0.16) 0px, transparent 50%),
-    radial-gradient(at 82% 18%, oklch(0.55 0.1 190 / 0.14) 0px, transparent 50%),
-    radial-gradient(at 75% 78%, oklch(0.58 0.13 140 / 0.12) 0px, transparent 50%),
-    radial-gradient(at 25% 80%, oklch(0.62 0.18 15 / 0.1) 0px, transparent 50%);
+    radial-gradient(at 18% 22%, color-mix(in oklch, var(--chart-1) 18%, transparent) 0px, transparent 50%),
+    radial-gradient(at 82% 18%, color-mix(in oklch, var(--chart-2) 16%, transparent) 0px, transparent 50%),
+    radial-gradient(at 75% 78%, color-mix(in oklch, var(--chart-3) 14%, transparent) 0px, transparent 50%),
+    radial-gradient(at 25% 80%, color-mix(in oklch, var(--primary) 12%, transparent) 0px, transparent 50%);
 }
 
-/* Gradient text */
+/* Gradient text — blends the 3 palette colors */
 .gradient-text {
-  background: linear-gradient(120deg, oklch(0.62 0.17 45), oklch(0.6 0.12 190), oklch(0.58 0.13 140));
+  background: linear-gradient(120deg, var(--chart-1), var(--chart-2), var(--chart-3));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Blended gradient button — uses all 3 palette colors */
+.btn-blend {
+  background: linear-gradient(135deg, var(--chart-1), var(--chart-2) 55%, var(--chart-3)) !important;
+  color: oklch(0.99 0.01 85) !important;
+  background-size: 200% 100% !important;
+  background-position: 0% 50% !important;
+  transition: background-position 0.5s ease, box-shadow 0.3s ease, transform 0.2s ease !important;
+  box-shadow: 0 6px 20px -8px var(--chart-2);
+}
+.btn-blend:hover {
+  background-position: 100% 50% !important;
+  box-shadow: 0 10px 28px -8px var(--chart-3);
 }
 
 /* Gradient border card */
@@ -189,7 +209,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, oklch(0.68 0.16 55 / 0.55), transparent 45%, oklch(0.55 0.1 190 / 0.4));
+  background: linear-gradient(135deg, color-mix(in oklch, var(--chart-1) 55%, transparent), transparent 45%, color-mix(in oklch, var(--chart-2) 40%, transparent));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -201,7 +221,7 @@
 .tilt-3d { transform-style: preserve-3d; transition: transform 0.15s ease-out; }
 .layer-3d { transform-style: preserve-3d; }
 
-/* Floating shadow that reads as depth */
+/* Floating shadow */
 .shadow-float {
   box-shadow:
     0 1px 2px oklch(0.3 0.05 55 / 0.06),
@@ -241,9 +261,9 @@
 
 /* Pulse ring */
 @keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 oklch(0.68 0.16 55 / 0.35); }
-  70% { box-shadow: 0 0 0 14px oklch(0.68 0.16 55 / 0); }
-  100% { box-shadow: 0 0 0 0 oklch(0.68 0.16 55 / 0); }
+  0% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--primary) 40%, transparent); }
+  70% { box-shadow: 0 0 0 14px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
 }
 .animate-pulse-ring { animation: pulse-ring 2.6s ease-out infinite; }
 
@@ -253,7 +273,94 @@
 
 /* Sticker tape underline */
 .underline-mark {
-  background-image: linear-gradient(transparent 62%, oklch(0.68 0.16 55 / 0.28) 62%);
+  background-image: linear-gradient(transparent 62%, color-mix(in oklch, var(--primary) 28%, transparent) 62%);
   background-size: 100% 100%;
   padding: 0 0.1em;
+}
+
+/* ============================================================= */
+/* 2D animated showcase keyframes (AI / resume / code)            */
+/* ============================================================= */
+
+/* Neural network node pulse */
+@keyframes nn-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.35); opacity: 1; }
+}
+.nn-node { transform-origin: center; transform-box: fill-box; animation: nn-pulse 2.4s ease-in-out infinite; }
+
+/* Data packet traveling along a path */
+@keyframes nn-flow {
+  0% { offset-distance: 0%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+.nn-packet { offset-path: var(--flow-path); animation: nn-flow 2.6s linear infinite; }
+
+/* Connection line shimmer */
+@keyframes nn-line {
+  0%, 100% { opacity: 0.18; }
+  50% { opacity: 0.5; }
+}
+.nn-line { animation: nn-line 3s ease-in-out infinite; }
+
+/* Resume scan beam */
+@keyframes scan-down {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(var(--scan-dist, 200px)); opacity: 0; }
+}
+.scan-beam { animation: scan-down 4s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+
+/* Checkmark pop */
+@keyframes check-pop {
+  0%, 70% { transform: scale(0); opacity: 0; }
+  75% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.check-pop { transform-origin: center; transform-box: fill-box; animation: check-pop 4s ease-out infinite; }
+
+/* Match score ring fill */
+@keyframes ring-fill {
+  0% { stroke-dashoffset: 283; }
+  60% { stroke-dashoffset: 80; }
+  100% { stroke-dashoffset: 80; }
+}
+.ring-fill { animation: ring-fill 4s ease-out infinite; }
+
+/* Code line typing in */
+@keyframes type-in {
+  0%, 5% { width: 0; opacity: 0; }
+  10% { opacity: 1; }
+  85% { width: var(--line-w, 100%); opacity: 1; }
+  100% { width: var(--line-w, 100%); opacity: 0.6; }
+}
+.type-line {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  animation: type-in 4.5s steps(40, end) infinite;
+}
+
+/* Code cursor blink */
+@keyframes code-cursor { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+.code-cursor { animation: code-cursor 1s step-end infinite; }
+
+/* Floating chip drift */
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(6px, -8px); }
+}
+.animate-drift { animation: drift 5s ease-in-out infinite; }
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

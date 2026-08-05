@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { cn } from "@/lib/utils"
+import { Reveal } from "@/components/reveal"
 
 const STARTER_CODE = `// This code runs in your browser. Edit me!
 const fib = (n) => {
@@ -35,13 +36,7 @@ export function Playground() {
     <section id="playground" className="relative py-24 sm:py-28 border-y border-border/40 bg-muted/20">
       <div className="absolute inset-0 bg-dots opacity-30 pointer-events-none" />
       <div className="mx-auto max-w-6xl px-4 relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-2xl mx-auto mb-12"
-        >
+        <Reveal direction="up" className="text-center max-w-2xl mx-auto mb-12">
           <p className="font-mono text-sm text-primary mb-2">{"// playground"}</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             Don&apos;t just read — <span className="gradient-text">run it.</span>
@@ -50,7 +45,7 @@ export function Playground() {
             A live JavaScript sandbox and a nutrition calculator. Everything here executes in your
             browser, proving the code actually works.
           </p>
-        </motion.div>
+        </Reveal>
 
         <Tabs defaultValue="sandbox" className="w-full">
           <TabsList className="mx-auto mb-6 grid w-full max-w-md grid-cols-2">
@@ -132,9 +127,9 @@ function JSSandbox() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      initial={{ opacity: 0, y: 28, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: false, margin: "-60px" }}
       transition={{ duration: 0.5 }}
     >
       <Card className="overflow-hidden">
@@ -268,9 +263,9 @@ function MacroCalculator() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      initial={{ opacity: 0, y: 28, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: false, margin: "-60px" }}
       transition={{ duration: 0.5 }}
       className="grid lg:grid-cols-5 gap-5"
     >

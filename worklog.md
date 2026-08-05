@@ -120,3 +120,45 @@ Stage Summary:
 - Portfolio fully repositioned for Junior Developer roles per user's exact spec
 - Warm human palette retained, 3D + generated imagery kept, all 5 sections (Hero/Tech Stack/Projects/About/Contact) match requirements
 - Lint clean, dev server running, all interactions browser-verified
+
+---
+Task ID: 23-27
+Agent: main
+Task: Image fix, 3 palettes, new scroll animations, 2D animated showcase (AI/resume/code)
+
+Work Log:
+- Regenerated /public/project-nutrifit.png with English-only labels (VLM confirmed: only "NUTRITION" + "66%", no Chinese). First attempt had a typo "MECONUTRIENT"; regenerated with single label for clean result.
+- Built 3-palette system:
+  - Aurora (Jade · Teal · Peacock Blue) — default
+  - Neon (Crimson · Magenta · Violet)
+  - Sunset (Amber · Coral · Rose)
+  - src/lib/palettes.ts defines palettes; src/hooks/use-palette.ts applies CSS vars (--primary/--ring/--chart-1,2,3/--accent) to :root + persists to localStorage
+  - src/components/palette-switcher.tsx: dropdown swatch button in navbar + compact row in mobile menu
+  - globals.css: gradient-text now uses var(--chart-1,2,3); new .btn-blend blends all 3 on the View Projects CTA; bg-mesh uses palette colors via color-mix; :root defaults to Aurora
+- New scroll animations (Reveal component): fall/slide in with blur when entering viewport, fade+blur out when leaving. Used useInView(once:false). Applied to all section headers + cards via Reveal wrapper or once:false + blur on existing motion blocks. Verified bidirectional (opacity 0 + translateY when out of view, opacity 1 when in).
+- Hover interactions: skill chips scale on hover, project cards lift, hero CTAs scale on hover/tap.
+- Replaced 3D R3F sphere with looping 2D animated showcase (src/components/animated-showcase.tsx):
+  - Scene 1: AI neural network (pulsing nodes, flowing data packets along connections)
+  - Scene 2: Resume screening (document + scan beam + checkmarks + 94% match ring + AI badge)
+  - Scene 3: Code terminal (typing lines + cursor + "deployed to Vercel")
+  - Each scene 6s, crossfade transitions, palette-aware (uses var(--chart-1/2/3)), clickable dots to switch
+  - Removed src/components/scene-3d.tsx (three.js no longer used)
+- Added prefers-reduced-motion support in globals.css
+
+Verification (Agent Browser + VLM):
+- Clean console (no three.js warnings anymore)
+- 2D showcase: no <canvas>, SVG renders; cycles Code→AI→Resume every 6s ✓
+- Palette switcher: 3 options; Aurora/Neon/Sunset all apply correct --primary + chart colors ✓
+- Gradient text + btn-blend blend all 3 palette colors (verified computed background) ✓
+- NutriFit image: VLM confirmed English only, no Chinese ✓
+- Scroll animations: About wrapper opacity 0 + translateY(36) when out of view, opacity 1 when in view ✓
+- Mobile: hamburger + compact palette switcher in menu, h1 scales to 36px ✓
+- Contact form: POST 200 + DB INSERT ✓
+- VLM on hero: title gradient teal-to-blue, 2 buttons, "2D Resume Scanner illustration" (NOT 3D sphere), cream + teal palette ✓
+- Lint clean
+
+Stage Summary:
+- NutriFit image now English-only
+- 3 blendable palettes wired into fonts (gradient-text) + buttons (btn-blend) via CSS vars, switchable from navbar
+- Old whileInView-once animations replaced with scroll-direction-aware Reveal (fade+blur in/out)
+- 3D sphere replaced by looping 2D AI/resume/code showcase, 6s each, palette-aware

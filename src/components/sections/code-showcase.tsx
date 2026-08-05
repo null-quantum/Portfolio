@@ -8,6 +8,7 @@ import { Copy, Check, Code2 } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
+import { Reveal } from "@/components/reveal"
 
 type Sample = {
   id: string
@@ -204,13 +205,7 @@ export function CodeShowcase() {
   return (
     <section id="code" className="relative py-24 sm:py-28">
       <div className="mx-auto max-w-6xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10"
-        >
+        <Reveal direction="up" className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
           <div className="space-y-2">
             <p className="font-mono text-sm text-primary">{"// code"}</p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
@@ -220,7 +215,7 @@ export function CodeShowcase() {
           <p className="text-sm text-muted-foreground max-w-sm">
             Each one is the actual pattern behind a piece of my projects. Copy whatever helps.
           </p>
-        </motion.div>
+        </Reveal>
 
         <Tabs value={active} onValueChange={setActive} className="w-full">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
@@ -243,9 +238,9 @@ export function CodeShowcase() {
           {SAMPLES.map((s) => (
             <TabsContent key={s.id} value={s.id}>
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Card className="overflow-hidden shadow-float">
                   <div className="flex items-center justify-between border-b border-border/60 bg-muted/40 px-4 py-2.5">

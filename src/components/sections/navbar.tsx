@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Coffee } from "lucide-react"
 import { NAV_ITEMS, PROFILE } from "@/lib/portfolio-data"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { PaletteSwitcher } from "@/components/palette-switcher"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -93,6 +94,7 @@ export function Navbar() {
                 <Coffee className="h-3.5 w-3.5" /> let&apos;s talk
               </Button>
             </a>
+            <PaletteSwitcher />
             <ThemeToggle />
             <Button
               variant="ghost"
@@ -131,6 +133,10 @@ export function Navbar() {
                     {item.label}
                   </Link>
                 ))}
+                <div className="flex items-center justify-between px-3 py-2 mt-1 border-t border-border/50">
+                  <span className="font-mono text-[11px] text-muted-foreground">{"// palette"}</span>
+                  <PaletteSwitcher compact />
+                </div>
               </div>
             </motion.nav>
           )}

@@ -10,6 +10,7 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { AddProjectDialog } from "@/components/add-project-dialog"
+import { Reveal } from "@/components/reveal"
 
 type Project = {
   id: string
@@ -53,13 +54,7 @@ export function Projects() {
   return (
     <section id="projects" className="relative py-24 sm:py-28">
       <div className="mx-auto max-w-6xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
-        >
+        <Reveal direction="up" className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div className="space-y-2">
             <p className="font-mono text-sm text-primary">{"// projects"}</p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
@@ -76,7 +71,7 @@ export function Projects() {
               </Button>
             } />
           </div>
-        </motion.div>
+        </Reveal>
 
         {loading ? (
           <div className="grid place-items-center py-24">
@@ -118,11 +113,12 @@ function CaseStudyCard({ project, index }: { project: Project; index: number }) 
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 12 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.55 }}
+      initial={{ opacity: 0, y: 32, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      exit={{ opacity: 0, y: 12, filter: "blur(8px)" }}
+      viewport={{ once: false, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -4 }}
     >
       <Card className="overflow-hidden shadow-float hover:border-primary/40 transition-colors">
         <div className={`grid lg:grid-cols-2 ${reverse ? "lg:[direction:rtl]" : ""}`}>
