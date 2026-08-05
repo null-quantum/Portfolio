@@ -200,3 +200,17 @@ Work Log:
 
 Stage Summary:
 - NutriFit image now minimalistic geometric visualization (no salad plate)
+
+---
+Task ID: 32
+Agent: main
+Task: Use portrait image for NutriFit (landscape was cropping awkwardly in tall card)
+
+Work Log:
+- Diagnosed: card left panel is tall/portrait, but image was landscape (1344x768) so bar chart + line graph got cropped, leaving only the ring visible
+- Regenerated /public/project-nutrifit.png at PORTRAIT orientation (864x1152), elements stacked vertically: ring (66%) at top, bar chart middle, line graph below, leaf icon bottom
+- VLM confirmed: portrait, vertically stacked, all elements visible, no orange/food/Asian text
+- Browser-verified in card: fills tall area nicely, no awkward cropping, polished, all elements visible
+
+Stage Summary:
+- NutriFit image now portrait (864x1152), matches card shape, all viz elements visible
