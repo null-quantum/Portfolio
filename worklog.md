@@ -187,3 +187,16 @@ Stage Summary:
 - NutriFit card no longer orange (image + accent both green now), matches Expense Tracker style/quality
 - Magenta palette enhanced into a proper violet/purple/magenta spectrum (Amethyst) that blends well
 - Sunset replaced with Ocean (cyan/azure/indigo) — clean, professional, high-rated
+
+---
+Task ID: 31
+Agent: main
+Task: Replace NutriFit image with minimalistic (no salad plate)
+
+Work Log:
+- Regenerated /public/project-nutrifit.png as minimalistic abstract: large progress ring (66%), small bar chart, line graph trending up, single leaf icon. No food/plate/salad. Sage green + teal on cream, lots of negative space.
+- VLM confirmed: no food, minimalistic, clean geometric shapes, no orange, no Asian text, polished
+- Verified renders on site (1344x768 loaded)
+
+Stage Summary:
+- NutriFit image now minimalistic geometric visualization (no salad plate)
