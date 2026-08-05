@@ -63,10 +63,10 @@ export function Footer() {
           <div>
             <p className="font-mono text-xs text-muted-foreground mb-3">{"// built with"}</p>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Next.js · React · TypeScript</li>
-              <li>Tailwind · Framer Motion</li>
-              <li>React 3D (R3F) · three.js</li>
-              <li>Prisma · SQLite</li>
+              <li>React · TypeScript · Tailwind</li>
+              <li>Node.js · Express · REST APIs</li>
+              <li>PostgreSQL · Supabase · MongoDB</li>
+              <li>LLM APIs · Prompt Engineering</li>
             </ul>
           </div>
         </div>

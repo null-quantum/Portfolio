@@ -45,13 +45,15 @@ model Project {
   title       String
   category    String
   year        String
-  blurb       String
-  description String
-  tech        String   // pipe-separated list
-  highlights  String   // newline-separated list
+  headline    String   @default("")   // one-line real-world purpose
+  problem     String   @default("")   // problem statement
+  features    String   @default("")   // newline-separated core features
+  role        String   @default("")   // my role & architecture
+  challenges  String   @default("")   // newline-separated technical challenges
+  tech        String   @default("")   // pipe-separated
   demoUrl     String   @default("")
   repoUrl     String   @default("")
-  accent      String   @default("oklch(0.7 0.15 70)")
+  accent      String   @default("oklch(0.68 0.16 55)")
   thumbnail   String   @default("")
   featured    Boolean  @default(false)
   order       Int      @default(0)

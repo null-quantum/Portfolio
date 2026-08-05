@@ -20,182 +20,168 @@ type Sample = {
 
 const SAMPLES: Sample[] = [
   {
-    id: "next",
-    label: "Next.js API",
-    lang: "typescript",
-    filename: "app/api/meals/route.ts",
-    desc: "A typed route handler that logs a meal with validation — the kind of endpoint NutriFit uses.",
-    code: `import { NextRequest, NextResponse } from "next/server";
+    id: "express",
+    label: "Express API",
+    lang: "javascript",
+    filename: "server/routes/expenses.js",
+    desc: "A REST endpoint that logs an expense with validation — the kind of route the Expense Tracker PWA calls.",
+    code: `import express from "express";
 import { z } from "zod";
-import { db } from "@/lib/db";
 
-const schema = z.object({
-  name: z.string().min(1).max(80),
-  kcal: z.number().min(0).max(5000),
-  protein: z.number().min(0),
-  carbs: z.number().min(0),
-  fat: z.number().min(0),
-  loggedAt: z.string().datetime().optional(),
+const router = express.Router();
+
+const expenseSchema = z.object({
+  amount: z.number().positive("Amount must be positive"),
+  note: z.string().min(1).max(120),
+  category: z.string().optional(),
+  date: z.string().datetime().optional(),
 });
 
-export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const parsed = schema.safeParse(body);
+// POST /api/expenses — log a new expense
+router.post("/", async (req, res) => {
+  const parsed = expenseSchema.safeParse(req.body);
   if (!parsed.success) {
-    return NextResponse.json(
-      { ok: false, error: parsed.error.issues[0]?.message },
-      { status: 400 }
-    );
+    return res.status(400).json({
+      error: parsed.error.issues[0]?.message,
+    });
   }
 
-  const meal = await db.meal.create({
+  const expense = await db.expense.create({
     data: {
       ...parsed.data,
-      loggedAt: parsed.data.loggedAt ?? new Date().toISOString(),
+      date: parsed.data.date ?? new Date().toISOString(),
+      userId: req.user.id,
     },
   });
 
-  return NextResponse.json({ ok: true, id: meal.id });
-}`,
+  res.status(201).json({ ok: true, expense });
+});
+
+export default router;`,
   },
   {
-    id: "zustand",
-    label: "React + Zustand",
+    id: "react",
+    label: "React + TS",
     lang: "tsx",
-    filename: "store/useMacroStore.ts",
-    desc: "A Zustand store for macro goals with a small React hook — the state behind the playground calculator.",
-    code: `import { create } from "zustand";
-import { persist } from "zustand/middleware";
+    filename: "components/ExpenseForm.tsx",
+    desc: "A controlled React form with TypeScript — the quick-log input from the Expense Tracker.",
+    code: `import { useState } from "react";
 
-interface Stats {
-  age: number;
-  height: number; // cm
-  weight: number; // kg
-  sex: "male" | "female";
-  activity: number;
-  goal: "cut" | "maintain" | "bulk";
+interface ExpenseFormProps {
+  onSubmit: (expense: { amount: number; note: string }) => Promise<void>;
 }
 
-interface MacroState extends Stats {
-  set: (patch: Partial<Stats>) => void;
-  reset: () => void;
-}
+export function ExpenseForm({ onSubmit }: ExpenseFormProps) {
+  const [amount, setAmount] = useState("");
+  const [note, setNote] = useState("");
+  const [loading, setLoading] = useState(false);
 
-export const useMacroStore = create<MacroState>()(
-  persist(
-    (set) => ({
-      age: 22,
-      height: 175,
-      weight: 72,
-      sex: "male",
-      activity: 1.55,
-      goal: "maintain",
-      set: (patch) => set(patch),
-      reset: () =>
-        set({ age: 22, height: 175, weight: 72, sex: "male", activity: 1.55, goal: "maintain" }),
-    }),
-    { name: "macro-store" }
-  )
-);
-
-// Mifflin-St Jeor, the same formula NutriFit uses
-export function bmr(s: Stats) {
-  const base = 10 * s.weight + 6.25 * s.height - 5 * s.age;
-  return s.sex === "male" ? base + 5 : base - 161;
-}
-
-export function target(s: Stats) {
-  const offset = s.goal === "cut" ? -450 : s.goal === "bulk" ? 350 : 0;
-  return bmr(s) * s.activity + offset;
-}`,
-  },
-  {
-    id: "prisma",
-    label: "Prisma",
-    lang: "prisma",
-    filename: "prisma/schema.prisma",
-    desc: "The NutriFit data model — foods, meals, goals and progress, all related and typed.",
-    code: `generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
-}
-
-model Food {
-  id       String  @id @default(cuid())
-  name     String
-  kcal     Float
-  protein  Float
-  carbs    Float
-  fat      Float
-  meals    Meal[]
-}
-
-model Meal {
-  id        String   @id @default(cuid())
-  name      String
-  kcal      Float
-  protein   Float
-  carbs     Float
-  fat       Float
-  loggedAt  DateTime @default(now())
-  foodId    String?
-  food      Food?    @relation(fields: [foodId], references: [id])
-
-  @@index([loggedAt])
-}
-
-model Goal {
-  id        String  @id @default(cuid())
-  kcal      Float
-  protein   Float
-  carbs     Float
-  fat       Float
-  active    Boolean @default(true)
-}`,
-  },
-  {
-    id: "motion",
-    label: "Framer Motion",
-    lang: "tsx",
-    filename: "components/TiltCard.tsx",
-    desc: "A reusable tilt-on-hover card with spring physics — the same idea powering the project cards above.",
-    code: `import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ReactNode } from "react";
-
-export function TiltCard({ children }: { children: ReactNode }) {
-  // raw pointer position (0 → 1)
-  const x = useMotionValue(0.5);
-  const y = useMotionValue(0.5);
-
-  // springy smoothing so it eases instead of snapping
-  const sx = useSpring(x, { stiffness: 200, damping: 18 });
-  const sy = useSpring(y, { stiffness: 200, damping: 18 });
-
-  // map 0..1 to a small rotation
-  const rotateX = useTransform(sy, [0, 1], [10, -10]);
-  const rotateY = useTransform(sx, [0, 1], [-10, 10]);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await onSubmit({ amount: Number(amount), note });
+      setAmount("");
+      setNote("");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <motion.div
-      onMouseMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        x.set((e.clientX - r.left) / r.width);
-        y.set((e.clientY - r.top) / r.height);
-      }}
-      onMouseLeave={() => {
-        x.set(0.5);
-        y.set(0.5);
-      }}
-      style={{ rotateX, rotateY, transformPerspective: 900 }}
-      className="rounded-2xl border bg-card p-6 shadow-float"
-    >
-      {children}
-    </motion.div>
+    <form onSubmit={handleSubmit} className="flex gap-2">
+      <input
+        type="number"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        placeholder="Amount"
+        required
+      />
+      <input
+        type="text"
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+        placeholder="Note"
+        required
+      />
+      <button type="submit" disabled={loading}>
+        {loading ? "Saving…" : "Log"}
+      </button>
+    </form>
   );
+}`,
+  },
+  {
+    id: "supabase",
+    label: "Supabase",
+    lang: "javascript",
+    filename: "lib/expenses.js",
+    desc: "Fetching a user's spending grouped by category from Supabase/PostgreSQL for the dashboard.",
+    code: `import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
+);
+
+// Get this month's spend grouped by category
+export async function getMonthlyBreakdown(userId) {
+  const startOfMonth = new Date();
+  startOfMonth.setDate(1);
+  startOfMonth.setHours(0, 0, 0, 0);
+
+  const { data, error } = await supabase
+    .from("expenses")
+    .select("amount, category")
+    .eq("user_id", userId)
+    .gte("date", startOfMonth.toISOString());
+
+  if (error) throw error;
+
+  // aggregate in JS — small result set
+  const byCategory = data.reduce((acc, e) => {
+    acc[e.category] = (acc[e.category] ?? 0) + e.amount;
+    return acc;
+  }, {});
+
+  return byCategory;
+}`,
+  },
+  {
+    id: "llm",
+    label: "LLM Integration",
+    lang: "javascript",
+    filename: "lib/categorize.js",
+    desc: "Auto-categorizing an expense with a structured LLM prompt — the AI core of the Expense Tracker.",
+    code: `// Auto-categorize an expense using an LLM API.
+// The prompt is tightly structured so the model returns clean JSON.
+
+const CATEGORIES = ["food", "transport", "bills", "shopping", "other"];
+
+export async function categorizeExpense({ amount, note }) {
+  const prompt = [
+    "You are an expense categorizer.",
+    "Categorize this expense into exactly ONE of: " + CATEGORIES.join(", ") + ".",
+    'Expense: "' + note + '" (amount: ' + amount + ")",
+    "",
+    'Respond ONLY as JSON: {"category": "<one of the categories>"}',
+  ].join("\\n");
+
+  const res = await fetch(process.env.LLM_API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + process.env.LLM_API_KEY,
+    },
+    body: JSON.stringify({ prompt, temperature: 0 }),
+  });
+
+  const json = await res.json();
+  const text = json.choices[0].message.content;
+  const parsed = JSON.parse(text);
+
+  // validate before trusting the AI output
+  return CATEGORIES.includes(parsed.category) ? parsed.category : "other";
 }`,
   },
 ]
@@ -232,7 +218,7 @@ export function CodeShowcase() {
             </h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-sm">
-            Each one is the actual pattern behind a piece of this site or NutriFit. Copy whatever helps.
+            Each one is the actual pattern behind a piece of my projects. Copy whatever helps.
           </p>
         </motion.div>
 
@@ -276,12 +262,7 @@ export function CodeShowcase() {
                     <SyntaxHighlighter
                       language={s.lang}
                       style={oneDark}
-                      customStyle={{
-                        margin: 0,
-                        background: "transparent",
-                        padding: "1rem 1.25rem",
-                        fontSize: "13px",
-                      }}
+                      customStyle={{ margin: 0, background: "transparent", padding: "1rem 1.25rem", fontSize: "13px" }}
                       codeTagProps={{ style: { fontFamily: "var(--font-jb-mono), monospace" } }}
                       showLineNumbers
                       lineNumberStyle={{ color: "#6b7280", paddingRight: "1rem", userSelect: "none" }}

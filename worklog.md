@@ -83,3 +83,40 @@ Stage Summary:
 - Real 3D (lazy R3F), generated imagery, DB-driven project submission that persists & displays
 - Removed all fake projects/AI giveaways; skills reflect actual learned stack
 - All interactions browser-verified end-to-end
+
+---
+Task ID: 15-22
+Agent: main
+Task: Reposition portfolio for Junior Developer roles (MNCs/startups) per user's exact spec
+
+Work Log:
+- Generated /public/resume.pdf (valid placeholder PDF via bun script) + /public/project-expense.png thumbnail
+- Extended Prisma Project model with case-study fields (headline, problem, features, role, challenges); deleted DB, db:push'd fresh
+- Rewrote portfolio-data: role="Junior Full-Stack Developer", subtitle="React, Node.js & AI-Driven Workflows"; TECH_STACK as 4 categorized chip groups (Frontend / Backend & Database / Tools & Deployment / AI & Workflows) with EXACT skills user specified; 2 seed projects (NutriFit Platform + AI Expense Tracker PWA) with full case-study content; 3-sentence professional bio; updated marquee
+- /api/projects: seeds both projects, serializes case-study fields; /api/contact: subject now optional (defaults "Portfolio contact")
+- Hero: H1 "Junior Full-Stack Developer", subtitle, two CTAs [View Projects] + [Download Resume → /resume.pdf], GitHub/LinkedIn/Email(mailto) icons, kept lazy 3D scene + avatar chip
+- Skills → Tech Stack: 4 category cards with skill chips, ZERO percentage bars (verified 0 sliders, 18 chips)
+- Projects → alternating full case-study cards: thumbnail + headline + Problem Statement + Core Features + My Role & Architecture + Technical Challenges Solved + tech tags + [🚀 Live Demo] + [💻 GitHub Code]
+- Add-project dialog: new case-study fields (headline/problem/features/role/challenges)
+- About: 3-sentence professional summary (web dev background, modern stack proficiency, enthusiasm for real-world software)
+- Contact: email in plain text + 3-field form (Name, Email, Message — no Subject)
+- Code Showcase: 4 authentic samples matching advertised stack (Express API, React+TS component, Supabase query, LLM integration) — removed Next.js/Zustand/Prisma/Framer samples
+- Footer + layout metadata updated for junior-dev positioning
+- Fixed: stale Prisma Client (restarted dev server), LLM code-sample backtick escaping
+
+Verification (Agent Browser + VLM):
+- Page 200, clean console (only three.js Clock deprecation warning)
+- VLM confirmed: title "Junior Full-Stack Developer", buttons "View Projects"+"Download Resume", social icons (GitHub/LinkedIn/Email), warm-light cream palette, 3D icosahedron ✓
+- resume.pdf: 200 application/pdf, download link /resume.pdf ✓
+- Tech stack: 0 sliders (no bars), 18 skill chips matching exact spec ✓
+- Both projects seeded (NutriFit + AI Expense Tracker PWA) with all 4 case-study sections each ✓
+- Both thumbnails loaded ✓
+- Contact form: exactly 3 fields (Name/Email/Message), email in plain text ✓
+- Contact submit → POST /api/contact 200 → DB INSERT ✓
+- Mobile 390px: H1 scales to 36px ✓
+- Lint clean
+
+Stage Summary:
+- Portfolio fully repositioned for Junior Developer roles per user's exact spec
+- Warm human palette retained, 3D + generated imagery kept, all 5 sections (Hero/Tech Stack/Projects/About/Contact) match requirements
+- Lint clean, dev server running, all interactions browser-verified

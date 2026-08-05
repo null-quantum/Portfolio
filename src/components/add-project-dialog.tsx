@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from "react"
-import { motion, AnimatePresence } from "framer-motion"
 import { Loader2, Plus, Sparkles, Upload } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,7 +10,6 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger,
 } from "@/components/ui/dialog"
 import { useToast } from "@/hooks/use-toast"
-import { cn } from "@/lib/utils"
 
 const CATEGORIES = ["Full-Stack", "Frontend", "Backend", "API", "3D", "Animation"] as const
 const ACCENTS = [
@@ -41,10 +39,12 @@ export function AddProjectDialog({
       title: String(fd.get("title") ?? ""),
       category: String(fd.get("category") ?? "Full-Stack"),
       year: String(fd.get("year") ?? new Date().getFullYear().toString()),
-      blurb: String(fd.get("blurb") ?? ""),
-      description: String(fd.get("description") ?? ""),
+      headline: String(fd.get("headline") ?? ""),
+      problem: String(fd.get("problem") ?? ""),
+      features: String(fd.get("features") ?? ""),
+      role: String(fd.get("role") ?? ""),
+      challenges: String(fd.get("challenges") ?? ""),
       tech: String(fd.get("tech") ?? ""),
-      highlights: String(fd.get("highlights") ?? ""),
       demoUrl: String(fd.get("demoUrl") ?? ""),
       repoUrl: String(fd.get("repoUrl") ?? ""),
       accent: String(fd.get("accent") ?? "oklch(0.55 0.1 190)"),
@@ -59,27 +59,16 @@ export function AddProjectDialog({
       })
       const json = await res.json()
       if (!res.ok || !json.ok) {
-        toast({
-          title: "Couldn't save",
-          description: json.error ?? "Please check your inputs.",
-          variant: "destructive",
-        })
+        toast({ title: "Couldn't save", description: json.error ?? "Please check your inputs.", variant: "destructive" })
         setLoading(false)
         return
       }
-      toast({
-        title: "Project added! 🎉",
-        description: json.message ?? "Saved and now showing on the site.",
-      })
+      toast({ title: "Project added! 🎉", description: json.message ?? "Saved and now showing on the site." })
       form.reset()
       setOpen(false)
       onAdded()
     } catch {
-      toast({
-        title: "Network error",
-        description: "Please check your connection and try again.",
-        variant: "destructive",
-      })
+      toast({ title: "Network error", description: "Please check your connection and try again.", variant: "destructive" })
     } finally {
       setLoading(false)
     }
@@ -95,7 +84,7 @@ export function AddProjectDialog({
             Add a project
           </DialogTitle>
           <DialogDescription>
-            Fill in the details — it gets saved to the database (SQLite via Prisma) and shows up here instantly.
+            Fill in the case study — it gets saved to the database and shows up here as a full case-study card.
           </DialogDescription>
         </DialogHeader>
 
@@ -120,9 +109,7 @@ export function AddProjectDialog({
                 defaultValue="Full-Stack"
                 className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
               >
-                {CATEGORIES.map((c) => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
+                {CATEGORIES.map((c) => (<option key={c} value={c}>{c}</option>))}
               </select>
             </div>
             <div className="space-y-2">
@@ -143,49 +130,49 @@ export function AddProjectDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="blurb">Short blurb *</Label>
-            <Input id="blurb" name="blurb" required maxLength={180} placeholder="One line that sums it up…" />
+            <Label htmlFor="headline">Headline (one-line real-world purpose)</Label>
+            <Input id="headline" name="headline" maxLength={180} placeholder="A web app that turns X into Y." />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Full description *</Label>
-            <Textarea
-              id="description"
-              name="description"
-              required
-              rows={4}
-              maxLength={1500}
-              placeholder="What does it do, why did you build it, what did you learn?"
-              className="resize-none"
-            />
+            <Label htmlFor="problem">Problem Statement</Label>
+            <Textarea id="problem" name="problem" rows={3} maxLength={800}
+              placeholder="What exact problem does this app solve?" className="resize-none" />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="features">Core Features (one per line)</Label>
+            <Textarea id="features" name="features" rows={3} maxLength={800}
+              placeholder={"Quick login with OAuth\nDashboard with charts\n..."} className="resize-none" />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="role">My Role &amp; Architecture</Label>
+            <Textarea id="role" name="role" rows={3} maxLength={800}
+              placeholder="Your role in system design, database setup, prompt structuring, debugging with AI tools…"
+              className="resize-none" />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="challenges">Technical Challenges Solved (one per line)</Label>
+            <Textarea id="challenges" name="challenges" rows={2} maxLength={800}
+              placeholder={"Fixed state sync bug with optimistic updates\nResolved API validation edge cases"}
+              className="resize-none" />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="tech">Tech stack *</Label>
-            <Input id="tech" name="tech" required placeholder="Next.js, React, TypeScript, Prisma" />
+            <Input id="tech" name="tech" required placeholder="React.js, Node.js, Express, PostgreSQL" />
             <p className="text-xs text-muted-foreground font-mono">comma-separated</p>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="highlights">Highlights</Label>
-            <Textarea
-              id="highlights"
-              name="highlights"
-              rows={3}
-              maxLength={800}
-              placeholder={"One per line\nBuilt auth flow\nAdded dark mode"}
-              className="resize-none"
-            />
-            <p className="text-xs text-muted-foreground font-mono">one per line (optional)</p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="demoUrl">Demo URL</Label>
-              <Input id="demoUrl" name="demoUrl" placeholder="https://…" />
+              <Label htmlFor="demoUrl">Live Demo URL</Label>
+              <Input id="demoUrl" name="demoUrl" placeholder="https://…vercel.app" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="repoUrl">Repo URL</Label>
+              <Label htmlFor="repoUrl">GitHub URL</Label>
               <Input id="repoUrl" name="repoUrl" placeholder="https://github.com/…" />
             </div>
           </div>
@@ -194,7 +181,7 @@ export function AddProjectDialog({
             {loading ? (
               <><Loader2 className="h-4 w-4 animate-spin" /> Saving…</>
             ) : (
-              <><Upload className="h-4 w-4" /> Save & publish</>
+              <><Upload className="h-4 w-4" /> Save &amp; publish</>
             )}
           </Button>
           <p className="text-center text-xs text-muted-foreground font-mono">

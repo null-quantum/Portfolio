@@ -1,16 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { z } from "zod";
-import { FEATURED_PROJECT } from "@/lib/portfolio-data";
+import { PROJECT_SEEDS } from "@/lib/portfolio-data";
 
 const schema = z.object({
   title: z.string().min(2, "Title needs at least 2 characters").max(80),
   category: z.string().min(1).max(40),
   year: z.string().min(2).max(8),
-  blurb: z.string().min(10, "Tell me a bit more (10+ chars)").max(180),
-  description: z.string().min(20, "Description needs 20+ characters").max(1500),
+  headline: z.string().max(180).optional().default(""),
+  problem: z.string().max(800).optional().default(""),
+  features: z.string().max(800).optional().default(""),
+  role: z.string().max(800).optional().default(""),
+  challenges: z.string().max(800).optional().default(""),
   tech: z.string().min(2).max(300),
-  highlights: z.string().max(800).optional().default(""),
   demoUrl: z.string().max(300).optional().default(""),
   repoUrl: z.string().max(300).optional().default(""),
   accent: z.string().max(60).optional().default("oklch(0.55 0.1 190)"),
@@ -20,55 +22,67 @@ async function ensureSeed() {
   try {
     const count = await db.project.count();
     if (count > 0) return;
-    await db.project.create({
-      data: {
-        title: FEATURED_PROJECT.title,
-        category: FEATURED_PROJECT.category,
-        year: FEATURED_PROJECT.year,
-        blurb: FEATURED_PROJECT.blurb,
-        description: FEATURED_PROJECT.description,
-        tech: FEATURED_PROJECT.tech.join("|"),
-        highlights: FEATURED_PROJECT.highlights.join("\n"),
-        demoUrl: FEATURED_PROJECT.demo,
-        repoUrl: FEATURED_PROJECT.repo,
-        accent: FEATURED_PROJECT.accent,
-        thumbnail: FEATURED_PROJECT.thumbnail,
-        featured: true,
-        order: 0,
-      },
-    });
+    for (const s of PROJECT_SEEDS) {
+      await db.project.create({
+        data: {
+          title: s.title,
+          category: s.category,
+          year: s.year,
+          headline: s.headline,
+          problem: s.problem,
+          features: s.features.join("\n"),
+          role: s.role,
+          challenges: s.challenges.join("\n"),
+          tech: s.tech.join("|"),
+          demoUrl: s.demoUrl,
+          repoUrl: s.repoUrl,
+          accent: s.accent,
+          thumbnail: s.thumbnail,
+          featured: s.featured,
+          order: s.order,
+        },
+      });
+    }
   } catch (err) {
     console.error("[projects] seed error:", err);
   }
+}
+
+function serialize(r: {
+  id: string; title: string; category: string; year: string;
+  headline: string; problem: string; features: string; role: string;
+  challenges: string; tech: string; demoUrl: string; repoUrl: string;
+  accent: string; thumbnail: string; featured: boolean; createdAt: Date;
+}) {
+  return {
+    id: r.id,
+    title: r.title,
+    category: r.category,
+    year: r.year,
+    headline: r.headline,
+    problem: r.problem,
+    features: r.features.split("\n").filter(Boolean),
+    role: r.role,
+    challenges: r.challenges.split("\n").filter(Boolean),
+    tech: r.tech.split("|").filter(Boolean),
+    demoUrl: r.demoUrl,
+    repoUrl: r.repoUrl,
+    accent: r.accent,
+    thumbnail: r.thumbnail,
+    featured: r.featured,
+    createdAt: r.createdAt,
+  };
 }
 
 export async function GET() {
   try {
     await ensureSeed();
     const rows = await db.project.findMany({ orderBy: [{ order: "asc" }, { createdAt: "asc" }] });
-    const projects = rows.map((r) => ({
-      id: r.id,
-      title: r.title,
-      category: r.category,
-      year: r.year,
-      blurb: r.blurb,
-      description: r.description,
-      tech: r.tech.split("|").filter(Boolean),
-      highlights: r.highlights.split("\n").filter(Boolean),
-      demoUrl: r.demoUrl,
-      repoUrl: r.repoUrl,
-      accent: r.accent,
-      thumbnail: r.thumbnail,
-      featured: r.featured,
-      createdAt: r.createdAt,
-    }));
+    const projects = rows.map(serialize);
     return NextResponse.json({ projects });
   } catch (err) {
     console.error("[projects] GET error:", err);
-    return NextResponse.json(
-      { projects: [], demo: true, error: "DB unavailable" },
-      { status: 200 }
-    );
+    return NextResponse.json({ projects: [], demo: true, error: "DB unavailable" }, { status: 200 });
   }
 }
 
@@ -92,10 +106,12 @@ export async function POST(req: NextRequest) {
           title: d.title,
           category: d.category,
           year: d.year,
-          blurb: d.blurb,
-          description: d.description,
+          headline: d.headline,
+          problem: d.problem,
+          features: d.features,
+          role: d.role,
+          challenges: d.challenges,
           tech: d.tech,
-          highlights: d.highlights,
           demoUrl: d.demoUrl,
           repoUrl: d.repoUrl,
           accent: d.accent,
@@ -111,20 +127,13 @@ export async function POST(req: NextRequest) {
     } catch (dbErr) {
       console.error("[projects] db error:", dbErr);
       return NextResponse.json(
-        {
-          ok: true,
-          demo: true,
-          message: "Got it (demo mode — DB not connected). It'd normally be saved to SQLite.",
-        },
+        { ok: true, demo: true, message: "Got it (demo mode — DB not connected). It'd normally be saved to SQLite." },
         { status: 200 }
       );
     }
   } catch (err) {
     console.error("[projects] unexpected:", err);
-    return NextResponse.json(
-      { ok: false, error: "Something went wrong. Please try again." },
-      { status: 500 }
-    );
+    return NextResponse.json({ ok: false, error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }
 
