@@ -214,3 +214,17 @@ Work Log:
 
 Stage Summary:
 - NutriFit image now portrait (864x1152), matches card shape, all viz elements visible
+
+---
+Task ID: 33
+Agent: main
+Task: Replace NutriFit image with user-uploaded Healthy Lifestyle infographic
+
+Work Log:
+- Copied user's uploaded image (upload/pasted_image_1785993677123.png, 458x475 square) to public/project-nutrifit.png
+- Changed project image rendering from object-cover (cropped) to object-contain on a soft accent-tinted background, so the full square infographic shows without cropping; removed dark gradient overlay that would muddy an infographic
+- VLM verified: Healthy Lifestyle infographic fully visible (person doing lunge + all habit icons: EAT VEGETABLES, EXERCISE, SLEEP, FRESH AIR, MINDFUL, DETOX, DRINK WATER, ADD FRUIT), fits well in card
+- Expense Tracker image still renders well with the new object-contain approach
+
+Stage Summary:
+- NutriFit now uses the user's uploaded Healthy Lifestyle infographic, fully visible (no cropping), on accent-tinted background

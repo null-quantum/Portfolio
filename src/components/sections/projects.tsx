@@ -125,12 +125,17 @@ function CaseStudyCard({ project, index }: { project: Project; index: number }) 
           {/* Image side */}
           <div className="relative min-h-[240px] lg:min-h-[420px] overflow-hidden border-b lg:border-b-0 border-border/50 [direction:ltr]">
             {project.thumbnail ? (
-              <img
-                src={project.thumbnail}
-                alt={`${project.title} thumbnail`}
-                className="object-cover w-full h-full absolute inset-0"
-                loading="lazy"
-              />
+              <div
+                className="absolute inset-0 grid place-items-center"
+                style={{ background: `linear-gradient(160deg, ${accent}1a, transparent 60%, ${accent}10)` }}
+              >
+                <img
+                  src={project.thumbnail}
+                  alt={`${project.title} thumbnail`}
+                  className="object-contain h-full w-full p-3 sm:p-5"
+                  loading="lazy"
+                />
+              </div>
             ) : (
               <div
                 className="w-full h-full grid place-items-center"
@@ -147,7 +152,6 @@ function CaseStudyCard({ project, index }: { project: Project; index: number }) 
                 </div>
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
             <div className="absolute top-4 left-4 flex gap-2">
               <Badge variant="secondary" className="font-mono text-xs backdrop-blur bg-card/85 gap-1">
                 <span className="h-2 w-2 rounded-full" style={{ background: accent }} />
