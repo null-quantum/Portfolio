@@ -7,10 +7,13 @@ export const PROFILE = {
   role: "Junior Full-Stack Developer",
   subtitle: "React, Node.js & AI-Driven Workflows",
   tagline: "I build functional, real-world web apps end to end.",
-  location: "Ahmedabad, India",
-  email: "dhruvpatel.dev@gmail.com",
-  github: "https://github.com/dhruv",
-  linkedin: "https://linkedin.com/in/dhruvendrapatel",
+  // Item 1: location confirmed by user as Noida, UP (Delhi NCR).
+  location: "Noida, UP, India",
+  // TODO(ITEM-1): The three values below are PLACEHOLDERS — confirm & replace
+  // with the real URLs/email before deploying. Do NOT ship these as-is.
+  email: "dhruvpatel.dev@gmail.com", // TODO: confirm real email
+  github: "https://github.com/dhruv", // TODO: confirm real GitHub profile URL
+  linkedin: "https://linkedin.com/in/dhruvendrapatel", // TODO: confirm real LinkedIn URL
   resume: "/resume.pdf",
   // Professional 3-sentence About summary.
   bio: [
@@ -18,15 +21,17 @@ export const PROFILE = {
     "I'm proficient with modern tech stacks — React, TypeScript, Tailwind, Express, PostgreSQL and MongoDB — and I'm comfortable integrating AI-driven workflows like LLM APIs and prompt engineering into real products.",
     "I'm genuinely enthusiastic about building functional, real-world software, and I learn fastest by shipping projects that solve actual problems.",
   ],
+  // Item 4: real numbers only. "Chai" joke stat removed.
+  // TODO(ITEM-4): confirm "Months hands-on coding" — temp value 14, replace with real number.
   stats: [
-    { label: "Projects built end-to-end", value: 5, suffix: "+" },
-    { label: "Technologies in my stack", value: 16, suffix: "" },
+    { label: "Projects built end-to-end", value: 2, suffix: "" },
+    { label: "Technologies in my stack", value: 18, suffix: "" },
     { label: "Months hands-on coding", value: 14, suffix: "+" },
-    { label: "Cups of chai per build", value: 3, suffix: "" },
   ],
 }
 
 // Categorized tech stack — NO percentage bars, just clear groups.
+// Item 4 note: technologies count = 6 + 5 + 4 + 3 = 18 (matches stat above).
 export type TechGroup = {
   category: string
   icon: LucideIcon
@@ -101,35 +106,40 @@ export const PROJECT_SEEDS: SeedProject[] = [
       "Resolved API validation edge cases where malformed meal data crashed the log endpoint.",
     ],
     tech: ["React.js", "TypeScript", "Node.js", "Express.js", "PostgreSQL", "Tailwind CSS"],
-    demoUrl: "#",
-    repoUrl: "#",
+    // Item 3: empty = "coming soon" placeholder. TODO: replace with real Vercel + GitHub URLs.
+    demoUrl: "",
+    repoUrl: "",
     accent: "oklch(0.58 0.13 140)",
     thumbnail: "/project-nutrifit.png",
     featured: true,
     order: 0,
   },
   {
-    title: "AI Expense Tracker PWA",
+    // Item 2: renamed from "AI Expense Tracker PWA" → "MoneyFlow".
+    // TODO(ITEM-2): confirm whether the name is "MoneyFlow" or "Spendwise".
+    title: "MoneyFlow",
     category: "Full-Stack",
     year: "2024",
     headline: "A Progressive Web App that logs expenses on the go and auto-categorizes them with AI.",
     problem:
-      "Manual expense tracking fails because categorizing each transaction is boring — so people skip it and lose the picture. This PWA lets you log in seconds and hands the categorization to an LLM.",
+      "Manual expense tracking fails because categorizing each transaction is boring — so people skip it and lose the picture. MoneyFlow lets you log in seconds and hands the categorization to an LLM.",
     features: [
       "Quick expense logging with amount, note and date",
-      "AI-powered auto-categorization using LLM API integration",
+      "AI-powered auto-categorization using Google Gemini",
       "Spending dashboard with category breakdowns and trends",
       "Offline-first PWA that works without a connection and syncs later",
     ],
     role:
-      "I designed the PWA architecture (service worker, offline storage), set up the database for transactions, and structured the LLM prompts that categorize expenses. I integrated the LLM API, handled the AI responses safely, and debugged alongside AI tools throughout the build.",
+      "I designed the PWA architecture (service worker, offline storage), set up the database for transactions, and structured the prompts that categorize expenses. I integrated Google Gemini (gemini-2.5-flash) as the primary provider with a fail-safe pattern — if the Gemini API times out or returns an unparseable response, the app falls back to a rule-based categorizer so the user is never blocked. I debugged alongside AI tools throughout the build.",
     challenges: [
       "Resolved offline-sync conflicts where duplicate expenses appeared after reconnecting — added idempotency keys to dedupe safely.",
-      "Fixed unreliable LLM categorization by tightening the prompt structure and validating API responses before using them.",
+      "Fixed unreliable AI categorization by tightening the prompt structure, validating Gemini responses before use, and adding the rule-based fallback.",
     ],
-    tech: ["React.js", "Node.js", "LLM API", "Supabase", "Tailwind CSS", "PWA"],
-    demoUrl: "#",
-    repoUrl: "#",
+    // Item 8: real architecture — Google Gemini, not generic "LLM API".
+    tech: ["React.js", "Node.js", "Google Gemini", "Supabase", "Tailwind CSS", "PWA"],
+    // Item 3: empty = "coming soon" placeholder. TODO: replace with real Vercel + GitHub URLs.
+    demoUrl: "",
+    repoUrl: "",
     accent: "oklch(0.55 0.1 190)",
     thumbnail: "/project-expense.png",
     featured: true,
@@ -149,5 +159,5 @@ export const NAV_ITEMS = [
 export const MARQUEE_ITEMS = [
   "HTML5", "CSS3", "JavaScript", "React.js", "TypeScript", "Tailwind CSS",
   "Node.js", "Express.js", "REST APIs", "Supabase", "PostgreSQL", "MongoDB",
-  "Git", "GitHub", "Postman", "Vercel", "LLM APIs", "Prompt Engineering",
+  "Git", "GitHub", "Postman", "Vercel", "Google Gemini", "PWA",
 ]

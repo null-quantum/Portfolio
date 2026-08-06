@@ -21,7 +21,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
-              {PROFILE.tagline} Built from scratch with Next.js, React, TypeScript, Tailwind, Framer Motion, React 3D & Prisma.
+              {PROFILE.tagline} Built from scratch with React, TypeScript, Tailwind, Node.js, and Google Gemini.
             </p>
             <div className="flex gap-1">
               <Button asChild variant="ghost" size="icon" className="h-9 w-9 rounded-full">
@@ -59,14 +59,14 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Built with */}
+          {/* Item 6: footer tech list matches what's actually in the repos. */}
           <div>
             <p className="font-mono text-xs text-muted-foreground mb-3">{"// built with"}</p>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>React · TypeScript · Tailwind</li>
               <li>Node.js · Express · REST APIs</li>
               <li>PostgreSQL · Supabase · MongoDB</li>
-              <li>LLM APIs · Prompt Engineering</li>
+              <li>Google Gemini API · PWA</li>
             </ul>
           </div>
         </div>

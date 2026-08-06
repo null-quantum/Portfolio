@@ -93,8 +93,8 @@ export function Projects() {
         ) : (
           <div className="space-y-8">
             <AnimatePresence mode="popLayout">
-              {projects.map((project, i) => (
-                <CaseStudyCard key={project.id} project={project} index={i} />
+              {projects.map((project) => (
+                <CaseStudyCard key={project.id} project={project} />
               ))}
             </AnimatePresence>
           </div>
@@ -106,8 +106,7 @@ export function Projects() {
 
 /* --------------------------- Case study card --------------------------- */
 
-function CaseStudyCard({ project, index }: { project: Project; index: number }) {
-  const reverse = index % 2 === 1
+function CaseStudyCard({ project }: { project: Project }) {
   const accent = project.accent
 
   return (
@@ -121,9 +120,10 @@ function CaseStudyCard({ project, index }: { project: Project; index: number }) 
       whileHover={{ y: -4 }}
     >
       <Card className="overflow-hidden shadow-float hover:border-primary/40 transition-colors">
-        <div className={`grid lg:grid-cols-2 ${reverse ? "lg:[direction:rtl]" : ""}`}>
+        {/* Item 5: both cards use identical layout — image left, text right. */}
+        <div className="grid lg:grid-cols-2">
           {/* Image side */}
-          <div className="relative min-h-[240px] lg:min-h-[420px] overflow-hidden border-b lg:border-b-0 border-border/50 [direction:ltr]">
+          <div className="relative min-h-[240px] lg:min-h-[420px] overflow-hidden border-b lg:border-b-0 lg:border-r border-border/50">
             {project.thumbnail ? (
               <div
                 className="absolute inset-0 grid place-items-center"
@@ -162,7 +162,7 @@ function CaseStudyCard({ project, index }: { project: Project; index: number }) 
           </div>
 
           {/* Content side */}
-          <div className="p-7 sm:p-8 [direction:ltr] flex flex-col">
+          <div className="p-7 sm:p-8 flex flex-col">
             <h3 className="text-2xl sm:text-3xl font-bold tracking-tight">{project.title}</h3>
             {project.headline && (
               <p className="mt-2 text-base font-medium" style={{ color: accent }}>
@@ -218,16 +218,30 @@ function CaseStudyCard({ project, index }: { project: Project; index: number }) 
                 </div>
               )}
               <div className="flex flex-wrap gap-2">
-                <Button asChild size="sm" className="gap-1.5">
-                  <a href={project.demoUrl || "#"} target="_blank" rel="noreferrer">
-                    <Rocket className="h-3.5 w-3.5" /> Live Demo
-                  </a>
-                </Button>
-                <Button asChild size="sm" variant="outline" className="gap-1.5">
-                  <a href={project.repoUrl || "#"} target="_blank" rel="noreferrer">
-                    <Github className="h-3.5 w-3.5" /> GitHub Code
-                  </a>
-                </Button>
+                {/* Item 3: buttons render as disabled "Coming soon" until real
+                    demo/repo URLs are set in the seed data. No dead links ship. */}
+                {project.demoUrl ? (
+                  <Button asChild size="sm" className="gap-1.5">
+                    <a href={project.demoUrl} target="_blank" rel="noreferrer">
+                      <Rocket className="h-3.5 w-3.5" /> Live Demo
+                    </a>
+                  </Button>
+                ) : (
+                  <Button size="sm" className="gap-1.5" disabled>
+                    <Rocket className="h-3.5 w-3.5" /> Live Demo (soon)
+                  </Button>
+                )}
+                {project.repoUrl ? (
+                  <Button asChild size="sm" variant="outline" className="gap-1.5">
+                    <a href={project.repoUrl} target="_blank" rel="noreferrer">
+                      <Github className="h-3.5 w-3.5" /> GitHub Code
+                    </a>
+                  </Button>
+                ) : (
+                  <Button size="sm" variant="outline" className="gap-1.5" disabled>
+                    <Github className="h-3.5 w-3.5" /> GitHub Code (soon)
+                  </Button>
+                )}
               </div>
             </div>
           </div>

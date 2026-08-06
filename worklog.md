@@ -228,3 +228,32 @@ Work Log:
 
 Stage Summary:
 - NutriFit now uses the user's uploaded Healthy Lifestyle infographic, fully visible (no cropping), on accent-tinted background
+
+---
+Task ID: 34-41
+Agent: main
+Task: 8-item portfolio accuracy fix (identity, naming, links, stats, layout, footer, contact, MoneyFlow tech)
+
+Work Log:
+- Item 1: location Ahmedabad → "Noida, UP, India" (confirmed by user). GitHub/LinkedIn/email/name kept as placeholders with TODO comments — flagged for user confirmation. Updated hero, footer, contact, layout meta, resume.pdf (regenerated with Noida).
+- Item 2: renamed "AI Expense Tracker PWA" → "MoneyFlow" in seed data + meta tags + marquee. Flagged for user to confirm MoneyFlow vs Spendwise.
+- Item 3: replaced dead "#" demo/repo URLs with empty strings; buttons now render as disabled "Live Demo (soon)" / "GitHub Code (soon)" until real URLs are set. No broken links ship. TODO comments added.
+- Item 4: stats fixed — 2 projects, 18 technologies (counted from tech stack section), months=14 (flagged temp). Removed "cups of chai" joke stat. Fixed useCountUp hook (was threshold 0.4 on tiny span → zeros bug; rewrote with threshold 0.05 + rootMargin + in-view-on-mount fallback). Grid changed to sm:grid-cols-3. Verified stats render 2/18/14+ (no zeros).
+- Item 5: removed CaseStudyCard alternation (reverse/rtl). Both cards now identical layout: image left, text right, same section order (problem → features → role → challenges → tech → buttons). Verified both grids have same class, no rtl.
+- Item 6: footer tech list updated — removed Prisma + "LLM APIs · Prompt Engineering"; now "Google Gemini API · PWA". Brand line updated to "React, TypeScript, Tailwind, Node.js, and Google Gemini" (no Prisma).
+- Item 7: contact form tested end-to-end — POST /api/contact 200 + Prisma INSERT confirmed; queried DB directly via bun:sqlite, row present ("Test Recruiter" / recruiter@example.com / full message). Form works.
+- Item 8: MoneyFlow tech tags updated — "LLM API" → "Google Gemini". Role description updated to mention gemini-2.5-flash primary + rule-based fail-safe fallback. Challenges updated to mention Gemini validation + fallback.
+
+Verification:
+- Page 200, clean, lint clean
+- Stats render 2/18/14+ (no zeros)
+- Both project titles: NutriFit Platform, MoneyFlow
+- 4 disabled "Coming soon" buttons (no dead links)
+- Both cards identical layout (no rtl)
+- Footer: no Prisma, has Gemini + PWA
+- Location: Noida present, Ahmedabad gone
+- Old name "AI Expense Tracker" gone everywhere
+- Contact form: DB row confirmed
+
+Stage Summary:
+- All 8 items addressed; 5 values flagged for user confirmation (name, GitHub, LinkedIn, email, months, project-2 name)

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from "framer-motion"
-import { BookOpen, Briefcase, Sparkles } from "lucide-react"
+import { BookOpen, Briefcase, Wrench } from "lucide-react"
 import { PROFILE } from "@/lib/portfolio-data"
 import { useCountUp } from "@/hooks/use-count-up"
 import { Card } from "@/components/ui/card"
@@ -15,7 +15,7 @@ function StatCard({
   index: number
 }) {
   const { ref, display } = useCountUp(stat.value, 1500, stat.decimals ?? 0)
-  const icons = [Briefcase, BookOpen, Sparkles, Sparkles]
+  const icons = [Briefcase, Wrench, BookOpen]
   const Icon = icons[index % icons.length]
   return (
     <motion.div
@@ -56,7 +56,7 @@ export function About() {
           </div>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4">
           {PROFILE.stats.map((stat, i) => (
             <StatCard key={stat.label} stat={stat} index={i} />
           ))}

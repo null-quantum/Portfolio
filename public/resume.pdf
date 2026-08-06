@@ -9,25 +9,26 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 1420 >>
+<< /Length 1519 >>
 stream
 BT /F1 26 Tf 60 730 Td (Dhruvendra Patel) Tj ET
 BT /F2 13 Tf 60 705 Td (Junior Full-Stack Developer | React, Node.js & AI-Driven Workflows) Tj ET
-BT /F2 11 Tf 60 678 Td (Email: dhruvpatel.dev@gmail.com) Tj ET
-BT /F2 11 Tf 60 662 Td (GitHub: github.com/dhruv   |   LinkedIn: linkedin.com/in/dhruvendrapatel) Tj ET
-BT /F2 11 Tf 60 646 Td (Location: Ahmedabad, India) Tj ET
-BT /F1 14 Tf 60 610 Td (Summary) Tj ET
-BT /F2 11 Tf 60 588 Td (Junior full-stack developer with hands-on experience building web apps with React,) Tj ET
-BT /F2 11 Tf 60 574 Td (Node.js, and modern JavaScript. Comfortable across the stack and with AI-driven workflows.) Tj ET
-BT /F1 14 Tf 60 540 Td (Tech Stack) Tj ET
-BT /F2 11 Tf 60 518 Td (Frontend: HTML5, CSS3, JavaScript (ES6+), React.js, TypeScript, Tailwind CSS) Tj ET
-BT /F2 11 Tf 60 504 Td (Backend & DB: Node.js, Express.js, REST APIs, Supabase / PostgreSQL, MongoDB) Tj ET
-BT /F2 11 Tf 60 490 Td (Tools & Deployment: Git, GitHub, Postman, Vercel) Tj ET
-BT /F2 11 Tf 60 476 Td (AI & Workflows: Agentic AI Tools, Prompt Engineering, LLM API Integration) Tj ET
-BT /F1 14 Tf 60 442 Td (Projects) Tj ET
-BT /F2 11 Tf 60 420 Td (- NutriFit Platform: nutrition & fitness tracking app) Tj ET
-BT /F2 11 Tf 60 406 Td (- AI Expense Tracker PWA: offline expense logging with AI auto-categorization) Tj ET
-BT /F1 12 Tf 60 370 Td (This is a placeholder resume. The full version will be added soon.) Tj ET
+BT /F2 11 Tf 60 678 Td (Email: dhruvpatel.dev@gmail.com  [TODO: confirm real email]) Tj ET
+BT /F2 11 Tf 60 662 Td (GitHub: github.com/dhruv  [TODO: confirm real URL]) Tj ET
+BT /F2 11 Tf 60 646 Td (LinkedIn: linkedin.com/in/dhruvendrapatel  [TODO: confirm real URL]) Tj ET
+BT /F2 11 Tf 60 630 Td (Location: Noida, UP, India) Tj ET
+BT /F1 14 Tf 60 594 Td (Summary) Tj ET
+BT /F2 11 Tf 60 572 Td (Junior full-stack developer with hands-on experience building web apps with React,) Tj ET
+BT /F2 11 Tf 60 558 Td (Node.js, and modern JavaScript. Comfortable across the stack and with AI-driven workflows.) Tj ET
+BT /F1 14 Tf 60 524 Td (Tech Stack) Tj ET
+BT /F2 11 Tf 60 502 Td (Frontend: HTML5, CSS3, JavaScript (ES6+), React.js, TypeScript, Tailwind CSS) Tj ET
+BT /F2 11 Tf 60 488 Td (Backend & DB: Node.js, Express.js, REST APIs, Supabase / PostgreSQL, MongoDB) Tj ET
+BT /F2 11 Tf 60 474 Td (Tools & Deployment: Git, GitHub, Postman, Vercel) Tj ET
+BT /F2 11 Tf 60 460 Td (AI & Workflows: Google Gemini API, Prompt Engineering, LLM Integration) Tj ET
+BT /F1 14 Tf 60 426 Td (Projects) Tj ET
+BT /F2 11 Tf 60 404 Td (- NutriFit Platform: nutrition & fitness tracking app) Tj ET
+BT /F2 11 Tf 60 390 Td (- MoneyFlow: AI expense tracker PWA with Google Gemini auto-categorization) Tj ET
+BT /F1 12 Tf 60 354 Td (This is a placeholder resume. The full version will be added soon.) Tj ET
 endstream
 endobj
 5 0 obj
@@ -43,10 +44,10 @@ xref
 0000000058 00000 n 
 0000000115 00000 n 
 0000000251 00000 n 
-0000001723 00000 n 
-0000001798 00000 n 
+0000001822 00000 n 
+0000001897 00000 n 
 trailer
 << /Size 7 /Root 1 0 R >>
 startxref
-1868
+1967
 %%EOF
