@@ -28,7 +28,8 @@ export const PROFILE = {
   ],
   experience: [
     {
-      role: "Software Development Intern",
+      role: "Trainee Developer (Internship)",
+      company: "Rego Digital Solution",
       period: "Dec 2022 – Jun 2023",
       duration: "6 months",
     },
@@ -36,12 +37,12 @@ export const PROFILE = {
   education: [
     {
       degree: "Master of Computer Applications (MCA)",
-      school: "Sandip University",
+      school: "Sandip University, Nashik",
       period: "2024 – 2026",
     },
     {
       degree: "Bachelor of Computer Applications (BCA)",
-      school: "",
+      school: "PSIT College of Higher Education, Kanpur",
       period: "2019 – 2022",
     },
   ],

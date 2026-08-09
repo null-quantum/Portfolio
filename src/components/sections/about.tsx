@@ -82,6 +82,9 @@ export function About() {
                 {PROFILE.experience.map((exp) => (
                   <div key={exp.role} className="border-l-2 border-primary/30 pl-4">
                     <h3 className="font-semibold">{exp.role}</h3>
+                    {exp.company && (
+                      <p className="text-sm font-medium" style={{ color: "var(--primary)" }}>{exp.company}</p>
+                    )}
                     <p className="text-sm text-muted-foreground font-mono mt-0.5">
                       {exp.period} · {exp.duration}
                     </p>
