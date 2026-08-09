@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from "react"
-import { Send, Mail, MapPin, Github, Linkedin, CheckCircle2, AlertCircle } from "lucide-react"
+import { Send, Mail, MapPin, Phone, Github, Linkedin, CheckCircle2, AlertCircle } from "lucide-react"
 import { PROFILE } from "@/lib/portfolio-data"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -76,7 +76,7 @@ export function Contact() {
                 <p className="text-sm text-muted-foreground">Email is the fastest — I reply within a day.</p>
               </div>
 
-              {/* Email in plain text */}
+              {/* Email + Phone + Location */}
               <div className="space-y-3">
                 <a href={`mailto:${PROFILE.email}`} className="flex items-center gap-3 group">
                   <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
@@ -84,6 +84,14 @@ export function Contact() {
                   </span>
                   <span className="text-sm font-medium group-hover:text-primary transition-colors">
                     {PROFILE.email}
+                  </span>
+                </a>
+                <a href={`tel:${PROFILE.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 group">
+                  <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                    <Phone className="h-4 w-4" />
+                  </span>
+                  <span className="text-sm font-medium group-hover:text-primary transition-colors">
+                    {PROFILE.phone}
                   </span>
                 </a>
                 <div className="flex items-center gap-3">

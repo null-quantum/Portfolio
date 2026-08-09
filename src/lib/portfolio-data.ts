@@ -12,8 +12,10 @@ export const PROFILE = {
   // Email confirmed by user. LinkedIn left as an editable placeholder —
   // replace the value below with your real LinkedIn URL anytime.
   email: "dhruvpatel.dev@gmail.com",
+  phone: "+91 93288 22331",
   github: "https://github.com/null-quantum",
   linkedin: "https://linkedin.com/in/dhruvendra-patel", // ← EDIT ME: replace with real LinkedIn URL
+  portfolioUrl: "https://portfolio-quantnull.vercel.app",
   resume: "/resume.pdf",
   // Honest, professional, human-written About summary.
   bio: [

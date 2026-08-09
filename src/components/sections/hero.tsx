@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { ArrowRight, Download, Github, Linkedin, Mail, MapPin } from "lucide-react"
+import { ArrowRight, Download, Github, Linkedin, Mail, MapPin, Phone } from "lucide-react"
 import { PROFILE, MARQUEE_ITEMS } from "@/lib/portfolio-data"
 import { Button } from "@/components/ui/button"
 import { AnimatedShowcase } from "@/components/animated-showcase"
@@ -98,6 +98,11 @@ export function Hero() {
               <Button asChild variant="ghost" size="icon" className="rounded-full h-10 w-10 border border-border/50">
                 <a href={`mailto:${PROFILE.email}`} aria-label="Email">
                   <Mail className="h-5 w-5" />
+                </a>
+              </Button>
+              <Button asChild variant="ghost" size="icon" className="rounded-full h-10 w-10 border border-border/50">
+                <a href={`tel:${PROFILE.phone.replace(/\s/g, "")}`} aria-label="Phone">
+                  <Phone className="h-5 w-5" />
                 </a>
               </Button>
               <span className="ml-1 flex items-center gap-1.5 text-xs text-muted-foreground font-mono">

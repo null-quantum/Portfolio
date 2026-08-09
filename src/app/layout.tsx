@@ -24,9 +24,15 @@ export const metadata: Metadata = {
   description: "Entry-Level Full-Stack Developer | React, Next.js, TypeScript, Node.js & PostgreSQL. 6 months industry experience, 2+ deployed projects. Explore NutriFit and MoneyFlow.",
   keywords: ["Dhruvendra Patel", "dhruv", "Full-Stack Developer", "Entry-Level Developer", "React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "Portfolio", "NutriFit", "MoneyFlow"],
   authors: [{ name: "Dhruvendra Patel" }],
+  metadataBase: new URL("https://portfolio-quantnull.vercel.app"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Dhruvendra Patel — Entry-Level Full-Stack Developer",
     description: "React · Next.js · TypeScript · Node.js · PostgreSQL. 6 months industry experience, 2+ deployed projects.",
+    url: "https://portfolio-quantnull.vercel.app",
+    siteName: "Dhruvendra Patel — Portfolio",
     type: "website",
   },
 };
