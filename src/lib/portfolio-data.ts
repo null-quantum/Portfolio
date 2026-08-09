@@ -4,27 +4,46 @@ import { Bot, Database, GitBranch, Layout } from "lucide-react"
 export const PROFILE = {
   name: "Dhruvendra Patel",
   shortName: "dhruv",
-  role: "Web Developer (Frontend)",
-  subtitle: "React · TypeScript · AI-Driven Web Apps",
-  tagline: "I build functional, real-world web apps end to end.",
+  role: "Entry-Level Full-Stack Developer",
+  subtitle: "React · Next.js · TypeScript · Node.js · PostgreSQL",
+  tagline: "6 Months Industry Experience · 2+ Deployed Projects · MCA 2026",
   // Location confirmed by user as Noida, UP (Delhi NCR).
   location: "Noida, UP, India",
-  // TODO: confirm real email + LinkedIn before deploying.
-  email: "dhruvpatel.dev@gmail.com", // TODO: confirm real email
+  // Email confirmed by user. LinkedIn left as an editable placeholder —
+  // replace the value below with your real LinkedIn URL anytime.
+  email: "dhruvpatel.dev@gmail.com",
   github: "https://github.com/null-quantum",
-  linkedin: "https://linkedin.com/in/dhruvendrapatel", // TODO: confirm real LinkedIn URL
+  linkedin: "https://linkedin.com/in/dhruvendra-patel", // ← EDIT ME: replace with real LinkedIn URL
   resume: "/resume.pdf",
-  education: ["BCA", "MCA"],
-  // Professional, concise, human-written About summary.
+  // Honest, professional, human-written About summary.
   bio: [
-    "I'm a web developer with a focus on the frontend, building responsive, interactive interfaces with React, TypeScript and Tailwind CSS. I also work across the stack — APIs, databases and AI integrations — to ship complete applications.",
-    "I hold a BCA and MCA, and I've built and deployed two real projects: NutriFit, an AI-powered nutrition platform, and MoneyFlow, an AI-powered personal finance app. Both are live and open-source.",
-    "I care about clean UI, usable interactions and code that's easy to maintain — and I learn fastest by actually shipping things.",
+    "I'm an entry-level full-stack developer who builds real web applications with React, Next.js, TypeScript, Node.js and PostgreSQL. I've completed a 6-month software development internship and I'm currently completing my MCA.",
+    "I've built and deployed two live, open-source projects — NutriFit, an AI-powered nutrition platform, and MoneyFlow, an AI-powered personal finance app — both running on Vercel.",
+    "I care about clean UI, responsive design, and code that's easy to maintain. I'm open to entry-level full-stack or frontend developer roles.",
   ],
   stats: [
-    { label: "Projects built & deployed", value: 2, suffix: "" },
-    { label: "Technologies in my stack", value: 18, suffix: "" },
-    { label: "Months hands-on coding", value: 14, suffix: "+" },
+    { label: "Deployed projects", value: 2, suffix: "+" },
+    { label: "Months industry experience", value: 6, suffix: "" },
+    { label: "MCA Graduate", text: "2026" },
+  ],
+  experience: [
+    {
+      role: "Software Development Intern",
+      period: "Dec 2022 – Jun 2023",
+      duration: "6 months",
+    },
+  ],
+  education: [
+    {
+      degree: "Master of Computer Applications (MCA)",
+      school: "Sandip University",
+      period: "2024 – 2026",
+    },
+    {
+      degree: "Bachelor of Computer Applications (BCA)",
+      school: "",
+      period: "2019 – 2022",
+    },
   ],
 }
 

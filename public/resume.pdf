@@ -9,30 +9,35 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Length 1606 >>
+<< /Length 1986 >>
 stream
 BT /F1 26 Tf 60 740 Td (Dhruvendra Patel) Tj ET
-BT /F2 13 Tf 60 715 Td (Web Developer (Frontend)) Tj ET
-BT /F2 11 Tf 60 690 Td (Email: dhruvpatel.dev@gmail.com) Tj ET
-BT /F2 11 Tf 60 675 Td (GitHub: github.com/null-quantum) Tj ET
-BT /F2 11 Tf 60 660 Td (LinkedIn: linkedin.com/in/dhruvendrapatel) Tj ET
-BT /F2 11 Tf 60 645 Td (Location: Noida, UP, India) Tj ET
-BT /F1 14 Tf 60 612 Td (Profile) Tj ET
-BT /F2 11 Tf 60 590 Td (Web developer with a frontend focus. I build responsive, interactive interfaces with) Tj ET
-BT /F2 11 Tf 60 576 Td (React, TypeScript and Tailwind CSS, and work across the stack to ship complete apps.) Tj ET
-BT /F1 14 Tf 60 542 Td (Education) Tj ET
-BT /F2 11 Tf 60 520 Td (- MCA (Master of Computer Applications)) Tj ET
-BT /F2 11 Tf 60 506 Td (- BCA (Bachelor of Computer Applications)) Tj ET
-BT /F1 14 Tf 60 472 Td (Tech Stack) Tj ET
-BT /F2 11 Tf 60 450 Td (Frontend: React, Next.js, TypeScript, Tailwind CSS, HTML5, CSS3, JavaScript) Tj ET
-BT /F2 11 Tf 60 436 Td (Backend & DB: Node.js, Express, REST APIs, PostgreSQL, Supabase, Prisma) Tj ET
-BT /F2 11 Tf 60 422 Td (AI: Google Gemini API, Prompt Engineering) Tj ET
-BT /F2 11 Tf 60 408 Td (Tools: Git, GitHub, Postman, Vercel) Tj ET
-BT /F1 14 Tf 60 374 Td (Projects) Tj ET
-BT /F2 11 Tf 60 352 Td (1. NutriFit (nutrifit-pi-beige.vercel.app) - AI nutrition & fitness platform) Tj ET
-BT /F2 11 Tf 60 338 Td (   GitHub: github.com/null-quantum/nutrifit) Tj ET
-BT /F2 11 Tf 60 318 Td (2. MoneyFlow (moneyflow-lemon.vercel.app) - AI personal finance app) Tj ET
-BT /F2 11 Tf 60 304 Td (   GitHub: github.com/null-quantum/moneyflow) Tj ET
+BT /F2 13 Tf 60 715 Td (Entry-Level Full-Stack Developer) Tj ET
+BT /F2 11 Tf 60 692 Td (React | Next.js | TypeScript | Node.js | PostgreSQL) Tj ET
+BT /F2 11 Tf 60 672 Td (6 Months Industry Experience | 2+ Deployed Projects | MCA 2026) Tj ET
+BT /F2 11 Tf 60 652 Td (Email: dhruvpatel.dev@gmail.com) Tj ET
+BT /F2 11 Tf 60 638 Td (GitHub: github.com/null-quantum) Tj ET
+BT /F2 11 Tf 60 624 Td (LinkedIn: linkedin.com/in/dhruvendra-patel) Tj ET
+BT /F2 11 Tf 60 610 Td (Location: Noida, UP, India) Tj ET
+BT /F1 14 Tf 60 578 Td (Profile) Tj ET
+BT /F2 11 Tf 60 556 Td (Entry-level full-stack developer building real web apps with React, Next.js,) Tj ET
+BT /F2 11 Tf 60 542 Td (TypeScript, Node.js and PostgreSQL. Completed a 6-month software dev internship.) Tj ET
+BT /F1 14 Tf 60 508 Td (Experience) Tj ET
+BT /F2 11 Tf 60 486 Td (Software Development Intern) Tj ET
+BT /F2 11 Tf 60 472 Td (Dec 2022 - Jun 2023 | 6 months) Tj ET
+BT /F1 14 Tf 60 438 Td (Education) Tj ET
+BT /F2 11 Tf 60 416 Td (- Master of Computer Applications (MCA), Sandip University, 2024-2026) Tj ET
+BT /F2 11 Tf 60 402 Td (- Bachelor of Computer Applications (BCA), 2019-2022) Tj ET
+BT /F1 14 Tf 60 368 Td (Tech Stack) Tj ET
+BT /F2 11 Tf 60 346 Td (Frontend: React, Next.js, TypeScript, Tailwind CSS, HTML5, CSS3, JavaScript) Tj ET
+BT /F2 11 Tf 60 332 Td (Backend & DB: Node.js, Express, REST APIs, PostgreSQL, Prisma) Tj ET
+BT /F2 11 Tf 60 318 Td (AI: Google Gemini API, Prompt Engineering) Tj ET
+BT /F2 11 Tf 60 304 Td (Tools: Git, GitHub, Postman, Vercel) Tj ET
+BT /F1 14 Tf 60 270 Td (Projects) Tj ET
+BT /F2 11 Tf 60 248 Td (1. NutriFit - AI nutrition & fitness platform) Tj ET
+BT /F2 11 Tf 60 234 Td (   Live: nutrifit-pi-beige.vercel.app | GitHub: github.com/null-quantum/nutrifit) Tj ET
+BT /F2 11 Tf 60 214 Td (2. MoneyFlow - AI personal finance app) Tj ET
+BT /F2 11 Tf 60 200 Td (   Live: moneyflow-lemon.vercel.app | GitHub: github.com/null-quantum/moneyflow) Tj ET
 endstream
 endobj
 5 0 obj
@@ -48,10 +53,10 @@ xref
 0000000058 00000 n 
 0000000115 00000 n 
 0000000251 00000 n 
-0000001909 00000 n 
-0000001984 00000 n 
+0000002289 00000 n 
+0000002364 00000 n 
 trailer
 << /Size 7 /Root 1 0 R >>
 startxref
-2054
+2434
 %%EOF

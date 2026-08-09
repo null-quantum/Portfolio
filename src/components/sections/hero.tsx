@@ -38,7 +38,7 @@ export function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
-              Open to Web Developer roles
+              Open to Full-Stack Developer roles
             </div>
           </Reveal>
 
@@ -143,7 +143,7 @@ export function Hero() {
               className="absolute bottom-12 right-0 z-20 rounded-2xl border border-border/70 bg-card/90 backdrop-blur p-3 shadow-float font-mono text-[11px] max-w-[220px]"
             >
               <p className="text-foreground/80">
-                <span className="text-primary">stack</span> = react · node · ts · llm-apis
+                <span className="text-primary">stack</span> = react · next · ts · node · pg
               </p>
             </motion.div>
 
