@@ -65,3 +65,9 @@ worklog.md
 
 # OS files
 Thumbs.db
+
+# Sandbox-specific files (not part of the portfolio)
+Caddyfile
+.zscripts/
+download/
+examples/
