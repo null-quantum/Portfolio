@@ -66,84 +66,40 @@ export const TECH_STACK: TechGroup[] = [
   },
 ]
 
-// The two main projects — seeded into the database.
-export type SeedProject = {
+// Two real, deployed projects. Static data — no database.
+// Source of truth: the actual GitHub repositories (do not invent features/tech).
+export type Project = {
   title: string
-  category: string
-  year: string
-  headline: string
-  problem: string
-  features: string[]
-  role: string
-  challenges: string[]
+  description: string
   tech: string[]
   demoUrl: string
   repoUrl: string
   accent: string
   thumbnail: string
-  featured: boolean
-  order: number
 }
 
-export const PROJECT_SEEDS: SeedProject[] = [
+export const PROJECTS: Project[] = [
   {
-    title: "NutriFit Platform",
-    category: "Full-Stack",
-    year: "2024",
-    headline: "A nutrition & fitness app that turns messy meal tracking into clear, visual progress.",
-    problem:
-      "Most people give up on nutrition tracking because spreadsheets are tedious and fitness apps feel bloated. NutriFit keeps logging fast and shows your progress at a glance, so the habit actually sticks.",
-    features: [
-      "Log meals and macros in seconds with a simple food search",
-      "Personalized calorie & macro targets calculated from your stats",
-      "Live progress charts that update the moment you log a meal",
-      "Daily goal tracking with streaks to keep you consistent",
-    ],
-    role:
-      "I designed the full-stack architecture end to end — the database schema for foods, meals and goals; the REST API endpoints for logging and retrieval; and the macro-calculation logic based on the Mifflin-St Jeor equation. I used AI tools to speed up scaffolding and debugging while reviewing every line of generated code.",
-    challenges: [
-      "Fixed state-sync lag where charts weren't reflecting newly logged meals — switched to optimistic updates so the UI updates instantly.",
-      "Resolved API validation edge cases where malformed meal data crashed the log endpoint.",
-    ],
-    tech: ["React.js", "TypeScript", "Node.js", "Express.js", "PostgreSQL", "Tailwind CSS"],
-    // Item 3: empty = "coming soon" placeholder. TODO: replace with real Vercel + GitHub URLs.
-    demoUrl: "",
-    repoUrl: "",
+    title: "NutriFit",
+    description:
+      "AI-powered nutrition and fitness platform that helps users track meals, understand nutrition, generate personalized workouts, and stay consistent with their fitness goals.",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Google Gemini AI", "PWA"],
+    demoUrl: "https://nutrifit-pi-beige.vercel.app/",
+    repoUrl: "https://github.com/null-quantum/nutrifit",
     accent: "oklch(0.58 0.13 140)",
     thumbnail: "/project-nutrifit.png",
-    featured: true,
-    order: 0,
   },
   {
-    // Item 2: renamed from "AI Expense Tracker PWA" → "MoneyFlow".
-    // TODO(ITEM-2): confirm whether the name is "MoneyFlow" or "Spendwise".
     title: "MoneyFlow",
-    category: "Full-Stack",
-    year: "2024",
-    headline: "A Progressive Web App that logs expenses on the go and auto-categorizes them with AI.",
-    problem:
-      "Manual expense tracking fails because categorizing each transaction is boring — so people skip it and lose the picture. MoneyFlow lets you log in seconds and hands the categorization to an LLM.",
-    features: [
-      "Quick expense logging with amount, note and date",
-      "AI-powered auto-categorization using Google Gemini",
-      "Spending dashboard with category breakdowns and trends",
-      "Offline-first PWA that works without a connection and syncs later",
-    ],
-    role:
-      "I designed the PWA architecture (service worker, offline storage), set up the database for transactions, and structured the prompts that categorize expenses. I integrated Google Gemini (gemini-2.5-flash) as the primary provider with a fail-safe pattern — if the Gemini API times out or returns an unparseable response, the app falls back to a rule-based categorizer so the user is never blocked. I debugged alongside AI tools throughout the build.",
-    challenges: [
-      "Resolved offline-sync conflicts where duplicate expenses appeared after reconnecting — added idempotency keys to dedupe safely.",
-      "Fixed unreliable AI categorization by tightening the prompt structure, validating Gemini responses before use, and adding the rule-based fallback.",
-    ],
-    // Item 8: real architecture — Google Gemini, not generic "LLM API".
-    tech: ["React.js", "Node.js", "Google Gemini", "Supabase", "Tailwind CSS", "PWA"],
-    // Item 3: empty = "coming soon" placeholder. TODO: replace with real Vercel + GitHub URLs.
+    description:
+      "AI-powered personal finance application that lets users record expenses using natural language, parse bank/UPI SMS messages, and understand their spending through an interactive dashboard.",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Google Gemini AI", "Zustand", "PWA"],
+    // TODO: user to provide the actual MoneyFlow Vercel URL.
+    // Left empty on purpose — do NOT invent a URL. Button renders disabled until set.
     demoUrl: "",
-    repoUrl: "",
+    repoUrl: "https://github.com/null-quantum/moneyflow",
     accent: "oklch(0.55 0.1 190)",
     thumbnail: "/project-expense.png",
-    featured: true,
-    order: 1,
   },
 ]
 

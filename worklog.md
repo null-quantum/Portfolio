@@ -257,3 +257,35 @@ Verification:
 
 Stage Summary:
 - All 8 items addressed; 5 values flagged for user confirmation (name, GitHub, LinkedIn, email, months, project-2 name)
+
+---
+Task ID: 42
+Agent: main
+Task: Update Projects section with 2 real deployed projects (NutriFit + MoneyFlow), simplify, remove DB/Add-project, Vercel-ready
+
+Work Log:
+- portfolio-data.ts: replaced PROJECT_SEEDS (DB-seeded, case-study fields) with static PROJECTS array. New minimal Project type: title, description, tech, demoUrl, repoUrl, accent, thumbnail. No DB.
+  - NutriFit: real URLs (demo https://nutrifit-pi-beige.vercel.app/, repo https://github.com/null-quantum/nutrifit), accurate tech (Next.js, React, TS, Tailwind, Prisma, PostgreSQL, Gemini AI, PWA), concise description from user.
+  - MoneyFlow: real repo (https://github.com/null-quantum/moneyflow), accurate tech (adds Zustand), concise description. demoUrl left EMPTY (user did not provide actual Vercel URL — did NOT invent one; button renders disabled "Live Demo (soon)"). Flagged TODO.
+- projects.tsx: full rewrite. Removed DB fetch, loading state, AddProjectDialog, case-study blocks (Problem/Features/Role/Challenges). New concise card: thumbnail + name + short description + tech tags + [Live Demo] [GitHub]. Preserved existing visual style (Reveal animation, shadow-float, accent-tinted image bg, badges, blend/outline buttons, hover lift). Heading changed "Case studies..." → "Built & deployed." (matches new concise framing).
+- Deleted: src/components/add-project-dialog.tsx, src/app/api/projects/route.ts ( + dir), src/hooks/use-tilt.ts (now unused).
+- prisma/schema.prisma: removed Project model (portfolio projects are static, no DB needed). db:push'd. ContactMessage model kept for contact form.
+- Production safety scan: no localhost/127.0.0.1/sandbox:/mnt///tmp/ file:/// in src. All asset paths relative.
+- External links verified HTTP 200: NutriFit demo (200), NutriFit repo (200), MoneyFlow repo (200).
+- Responsive: 2-col desktop → 1-col mobile (verified singleColumn:true at 390px).
+- All 7 sections + nav intact. Lint clean.
+
+Verification (Agent Browser + VLM):
+- 2 cards: NutriFit, MoneyFlow
+- NutriFit: Live Demo → https://nutrifit-pi-beige.vercel.app/ ✓, GitHub → https://github.com/null-quantum/nutrifit ✓
+- MoneyFlow: GitHub → https://github.com/null-quantum/moneyflow ✓, Live Demo disabled "soon" (no invented URL) ✓
+- No "Add a project" button ✓
+- No dead "#" links ✓
+- VLM confirmed: clean, recruiter-friendly, MoneyFlow button visibly disabled
+- Mobile responsive ✓
+
+Stage Summary:
+- Projects section now shows 2 real deployed apps, concise cards, real links
+- Removed DB/Add-project/case-study overload per user request
+- Vercel-ready (static projects, no DB dependency for projects)
+- BLOCKER: need actual MoneyFlow Vercel URL from user to enable its Live Demo button

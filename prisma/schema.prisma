@@ -39,25 +39,3 @@ model ContactMessage {
 
   @@index([createdAt])
 }
-
-model Project {
-  id          String   @id @default(cuid())
-  title       String
-  category    String
-  year        String
-  headline    String   @default("")   // one-line real-world purpose
-  problem     String   @default("")   // problem statement
-  features    String   @default("")   // newline-separated core features
-  role        String   @default("")   // my role & architecture
-  challenges  String   @default("")   // newline-separated technical challenges
-  tech        String   @default("")   // pipe-separated
-  demoUrl     String   @default("")
-  repoUrl     String   @default("")
-  accent      String   @default("oklch(0.68 0.16 55)")
-  thumbnail   String   @default("")
-  featured    Boolean  @default(false)
-  order       Int      @default(0)
-  createdAt   DateTime @default(now())
-
-  @@index([order])
-}
