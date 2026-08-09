@@ -52,3 +52,16 @@ prompt
 server.log
 # Skills directory
 /skills/
+# Local database & env
+db/
+.env
+.env.local
+
+# User uploads (not part of the portfolio)
+upload/
+
+# Internal work log
+worklog.md
+
+# OS files
+Thumbs.db

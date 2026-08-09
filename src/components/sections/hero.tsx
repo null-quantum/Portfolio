@@ -38,7 +38,7 @@ export function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
-              Open to Junior Developer roles
+              Open to Web Developer roles
             </div>
           </Reveal>
 
@@ -133,7 +133,7 @@ export function Hero() {
               />
               <div className="leading-tight">
                 <p className="text-xs font-semibold">{PROFILE.name}</p>
-                <p className="text-[11px] text-muted-foreground font-mono">junior · ready to ship</p>
+                <p className="text-[11px] text-muted-foreground font-mono">ready to ship</p>
               </div>
             </motion.div>
 

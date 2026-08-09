@@ -20,13 +20,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dhruvendra Patel — Junior Full-Stack Developer",
-  description: "Junior Full-Stack Developer skilled in React, Node.js, TypeScript & AI-driven workflows. Explore case studies like the NutriFit Platform and MoneyFlow, plus live code demos.",
-  keywords: ["Dhruvendra Patel", "dhruv", "Junior Full-Stack Developer", "React", "Node.js", "TypeScript", "Google Gemini", "Portfolio", "NutriFit", "MoneyFlow"],
+  title: "Dhruvendra Patel — Web Developer (Frontend)",
+  description: "Web Developer (Frontend) skilled in React, TypeScript, Tailwind CSS & AI integrations. Explore my deployed projects: NutriFit and MoneyFlow.",
+  keywords: ["Dhruvendra Patel", "dhruv", "Web Developer", "Frontend Developer", "React", "TypeScript", "Portfolio", "NutriFit", "MoneyFlow"],
   authors: [{ name: "Dhruvendra Patel" }],
   openGraph: {
-    title: "Dhruvendra Patel — Junior Full-Stack Developer",
-    description: "React, Node.js & AI-Driven Workflows. Case studies, live demos, and real code.",
+    title: "Dhruvendra Patel — Web Developer (Frontend)",
+    description: "React · TypeScript · AI-Driven Web Apps. Deployed projects, live demos, and real code.",
     type: "website",
   },
 };

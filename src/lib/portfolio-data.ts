@@ -4,27 +4,25 @@ import { Bot, Database, GitBranch, Layout } from "lucide-react"
 export const PROFILE = {
   name: "Dhruvendra Patel",
   shortName: "dhruv",
-  role: "Junior Full-Stack Developer",
-  subtitle: "React, Node.js & AI-Driven Workflows",
+  role: "Web Developer (Frontend)",
+  subtitle: "React · TypeScript · AI-Driven Web Apps",
   tagline: "I build functional, real-world web apps end to end.",
-  // Item 1: location confirmed by user as Noida, UP (Delhi NCR).
+  // Location confirmed by user as Noida, UP (Delhi NCR).
   location: "Noida, UP, India",
-  // TODO(ITEM-1): The three values below are PLACEHOLDERS — confirm & replace
-  // with the real URLs/email before deploying. Do NOT ship these as-is.
+  // TODO: confirm real email + LinkedIn before deploying.
   email: "dhruvpatel.dev@gmail.com", // TODO: confirm real email
-  github: "https://github.com/dhruv", // TODO: confirm real GitHub profile URL
+  github: "https://github.com/null-quantum",
   linkedin: "https://linkedin.com/in/dhruvendrapatel", // TODO: confirm real LinkedIn URL
   resume: "/resume.pdf",
-  // Professional 3-sentence About summary.
+  education: ["BCA", "MCA"],
+  // Professional, concise, human-written About summary.
   bio: [
-    "I'm a junior full-stack developer with hands-on experience building web applications using React, Node.js, and modern JavaScript, working across the stack from responsive interfaces to REST APIs and databases.",
-    "I'm proficient with modern tech stacks — React, TypeScript, Tailwind, Express, PostgreSQL and MongoDB — and I'm comfortable integrating AI-driven workflows like LLM APIs and prompt engineering into real products.",
-    "I'm genuinely enthusiastic about building functional, real-world software, and I learn fastest by shipping projects that solve actual problems.",
+    "I'm a web developer with a focus on the frontend, building responsive, interactive interfaces with React, TypeScript and Tailwind CSS. I also work across the stack — APIs, databases and AI integrations — to ship complete applications.",
+    "I hold a BCA and MCA, and I've built and deployed two real projects: NutriFit, an AI-powered nutrition platform, and MoneyFlow, an AI-powered personal finance app. Both are live and open-source.",
+    "I care about clean UI, usable interactions and code that's easy to maintain — and I learn fastest by actually shipping things.",
   ],
-  // Item 4: real numbers only. "Chai" joke stat removed.
-  // TODO(ITEM-4): confirm "Months hands-on coding" — temp value 14, replace with real number.
   stats: [
-    { label: "Projects built end-to-end", value: 2, suffix: "" },
+    { label: "Projects built & deployed", value: 2, suffix: "" },
     { label: "Technologies in my stack", value: 18, suffix: "" },
     { label: "Months hands-on coding", value: 14, suffix: "+" },
   ],
@@ -94,9 +92,7 @@ export const PROJECTS: Project[] = [
     description:
       "AI-powered personal finance application that lets users record expenses using natural language, parse bank/UPI SMS messages, and understand their spending through an interactive dashboard.",
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Google Gemini AI", "Zustand", "PWA"],
-    // TODO: user to provide the actual MoneyFlow Vercel URL.
-    // Left empty on purpose — do NOT invent a URL. Button renders disabled until set.
-    demoUrl: "",
+    demoUrl: "https://moneyflow-lemon.vercel.app/",
     repoUrl: "https://github.com/null-quantum/moneyflow",
     accent: "oklch(0.55 0.1 190)",
     thumbnail: "/project-expense.png",

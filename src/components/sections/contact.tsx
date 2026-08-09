@@ -119,7 +119,7 @@ export function Contact() {
             <Card className="p-5 bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
               <p className="font-mono text-xs text-primary mb-1">$ status --availability</p>
               <p className="text-sm">
-                Open to <span className="font-semibold text-primary">junior developer roles</span> at startups &amp; MNCs — internships and full-time.
+                Open to <span className="font-semibold text-primary">web developer roles</span> at startups &amp; MNCs — internships and full-time.
               </p>
             </Card>
           </Reveal>

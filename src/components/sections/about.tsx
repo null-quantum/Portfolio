@@ -45,8 +45,8 @@ export function About() {
           <div className="lg:col-span-5 space-y-5">
             <p className="font-mono text-sm text-primary">{"// about me"}</p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              Junior dev, <br className="hidden sm:block" />
-              <span className="gradient-text">built different.</span>
+              Frontend-focused, <br className="hidden sm:block" />
+              <span className="gradient-text">full-stack capable.</span>
             </h2>
           </div>
           <div className="lg:col-span-7 space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
