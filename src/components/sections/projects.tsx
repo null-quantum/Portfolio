@@ -63,9 +63,20 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {/* Content */}
         <div className="p-6 flex flex-col flex-1">
           <h3 className="text-xl font-bold tracking-tight">{project.title}</h3>
-          <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">
+          <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
             {project.description}
           </p>
+
+          {project.features.length > 0 && (
+            <ul className="mt-3 space-y-1 flex-1">
+              {project.features.map((f) => (
+                <li key={f} className="flex gap-2 text-sm text-muted-foreground">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: accent }} />
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+          )}
 
           <div className="flex flex-wrap gap-1.5 mt-4 mb-5">
             {project.tech.map((t) => (

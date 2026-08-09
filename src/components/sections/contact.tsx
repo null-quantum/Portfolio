@@ -1,59 +1,54 @@
 'use client'
 
 import * as React from "react"
-import { motion } from "framer-motion"
-import { Send, Mail, MapPin, Github, Linkedin, Loader2, CheckCircle2, AlertCircle } from "lucide-react"
+import { Send, Mail, MapPin, Github, Linkedin, CheckCircle2, AlertCircle } from "lucide-react"
 import { PROFILE } from "@/lib/portfolio-data"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/hooks/use-toast"
 import { Reveal } from "@/components/reveal"
 
-type Status = "idle" | "loading" | "success" | "error"
+type Status = "idle" | "success" | "error"
 
 export function Contact() {
   const [status, setStatus] = React.useState<Status>("idle")
   const [errorMsg, setErrorMsg] = React.useState("")
-  const { toast } = useToast()
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget
     const data = new FormData(form)
-    const payload = {
-      name: String(data.get("name") ?? ""),
-      email: String(data.get("email") ?? ""),
-      message: String(data.get("message") ?? ""),
-    }
+    const name = String(data.get("name") ?? "").trim()
+    const email = String(data.get("email") ?? "").trim()
+    const message = String(data.get("message") ?? "").trim()
 
-    setStatus("loading")
-    setErrorMsg("")
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-      const json = await res.json()
-      if (!res.ok || !json.ok) {
-        setStatus("error")
-        setErrorMsg(json.error ?? "Failed to send message")
-        toast({ title: "Couldn't send message", description: json.error ?? "Please try again.", variant: "destructive" })
-        return
-      }
-      setStatus("success")
-      form.reset()
-      toast({ title: "Message sent! 🎉", description: json.message ?? "I'll get back to you soon.", })
-      setTimeout(() => setStatus("idle"), 4000)
-    } catch {
+    if (name.length < 2) {
       setStatus("error")
-      setErrorMsg("Network error — please check your connection.")
-      toast({ title: "Network error", description: "Please check your connection and try again.", variant: "destructive" })
+      setErrorMsg("Please enter your name.")
+      return
     }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setStatus("error")
+      setErrorMsg("Please enter a valid email address.")
+      return
+    }
+    if (message.length < 10) {
+      setStatus("error")
+      setErrorMsg("Message must be at least 10 characters.")
+      return
+    }
+
+    // Vercel-safe: open the visitor's email client pre-filled. No server,
+    // no database, no false persistence claim.
+    const subject = `Portfolio contact from ${name}`
+    const body = `Name: ${name}\nEmail: ${email}\n\n${message}`
+    const mailto = `mailto:${PROFILE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    window.location.href = mailto
+    setStatus("success")
+    form.reset()
+    setTimeout(() => setStatus("idle"), 5000)
   }
 
   return (
@@ -130,18 +125,18 @@ export function Contact() {
               <form onSubmit={onSubmit} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
-                  <Input id="name" name="name" required placeholder="Your name" disabled={status === "loading"} />
+                  <Input id="name" name="name" required placeholder="Your name" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" name="email" type="email" required placeholder="you@example.com" disabled={status === "loading"} />
+                  <Input id="email" name="email" type="email" required placeholder="you@example.com" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
                   <Textarea
                     id="message" name="message" required rows={6}
                     placeholder="Tell me about the role or project…"
-                    disabled={status === "loading"} className="resize-none"
+                    className="resize-none"
                   />
                 </div>
 
@@ -154,20 +149,16 @@ export function Contact() {
                 {status === "success" && (
                   <div className="flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-600 dark:text-emerald-400">
                     <CheckCircle2 className="h-4 w-4 shrink-0" />
-                    Message sent! I&apos;ll be in touch soon.
+                    Your email app should have opened with the message pre-filled — just hit send.
                   </div>
                 )}
 
-                <Button type="submit" disabled={status === "loading"} className="w-full gap-2" size="lg">
-                  {status === "loading" ? (
-                    <><Loader2 className="h-4 w-4 animate-spin" /> Sending…</>
-                  ) : (
-                    <><Send className="h-4 w-4" /> Send message</>
-                  )}
+                <Button type="submit" className="w-full gap-2" size="lg">
+                  <Send className="h-4 w-4" /> Send message
                 </Button>
 
                 <p className="text-center text-xs text-muted-foreground font-mono">
-                  POST /api/contact → saved to database
+                  Opens your email app — or reach me directly at {PROFILE.email}
                 </p>
               </form>
             </Card>

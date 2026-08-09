@@ -17,7 +17,7 @@ export const PROFILE = {
   resume: "/resume.pdf",
   // Honest, professional, human-written About summary.
   bio: [
-    "I'm an entry-level full-stack developer who builds real web applications with React, Next.js, TypeScript, Node.js and PostgreSQL. I've completed a 6-month software development internship and I'm currently completing my MCA.",
+    "I'm an entry-level full-stack developer who builds real web applications with React, Next.js, TypeScript, Node.js and PostgreSQL. I have 6 months of industry experience from a software development internship.",
     "I've built and deployed two live, open-source projects — NutriFit, an AI-powered nutrition platform, and MoneyFlow, an AI-powered personal finance app — both running on Vercel.",
     "I care about clean UI, responsive design, and code that's easy to maintain. I'm open to entry-level full-stack or frontend developer roles.",
   ],
@@ -89,6 +89,7 @@ export type Project = {
   title: string
   description: string
   tech: string[]
+  features: string[]
   demoUrl: string
   repoUrl: string
   accent: string
@@ -101,6 +102,13 @@ export const PROJECTS: Project[] = [
     description:
       "AI-powered nutrition and fitness platform that helps users track meals, understand nutrition, generate personalized workouts, and stay consistent with their fitness goals.",
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Google Gemini AI", "PWA"],
+    features: [
+      "AI meal analysis & nutrition tracking",
+      "AI-generated personalized workouts",
+      "Progress and activity tracking",
+      "Authentication",
+      "Installable, offline-friendly PWA",
+    ],
     demoUrl: "https://nutrifit-pi-beige.vercel.app/",
     repoUrl: "https://github.com/null-quantum/nutrifit",
     accent: "oklch(0.58 0.13 140)",
@@ -111,6 +119,13 @@ export const PROJECTS: Project[] = [
     description:
       "AI-powered personal finance application that lets users record expenses using natural language, parse bank/UPI SMS messages, and understand their spending through an interactive dashboard.",
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Google Gemini AI", "Zustand", "PWA"],
+    features: [
+      "Natural-language expense entry",
+      "AI-powered expense parsing",
+      "Bank/UPI SMS parsing",
+      "Spending analytics with interactive charts",
+      "Authentication & PWA / offline-capable",
+    ],
     demoUrl: "https://moneyflow-lemon.vercel.app/",
     repoUrl: "https://github.com/null-quantum/moneyflow",
     accent: "oklch(0.55 0.1 190)",
@@ -122,8 +137,6 @@ export const NAV_ITEMS = [
   { label: "About", href: "#about" },
   { label: "Tech Stack", href: "#skills" },
   { label: "Projects", href: "#projects" },
-  { label: "Playground", href: "#playground" },
-  { label: "Code", href: "#code" },
   { label: "Contact", href: "#contact" },
 ]
 
