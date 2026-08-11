@@ -11,7 +11,7 @@ export const PROFILE = {
   location: "Noida, UP, India",
   // Email confirmed by user. LinkedIn left as an editable placeholder —
   // replace the value below with your real LinkedIn URL anytime.
-  email: "dhruvpatel.dev@gmail.com",
+  email: "dhruvendra.sach@gmail.com",
   phone: "+91 93288 22331",
   github: "https://github.com/null-quantum",
   linkedin: "https://linkedin.com/in/dhruvendra-patel", // ← EDIT ME: replace with real LinkedIn URL
