@@ -1,11 +1,11 @@
 import type { LucideIcon } from "lucide-react"
-import { Bot, Database, GitBranch, Layout } from "lucide-react"
+import { Bot, GitBranch, Layout, Plug } from "lucide-react"
 
 export const PROFILE = {
   name: "Dhruvendra Patel",
   shortName: "dhruv",
-  role: "Entry-Level Full-Stack Developer",
-  subtitle: "React · Next.js · TypeScript · Node.js · PostgreSQL",
+  role: "Entry-Level Frontend Developer",
+  subtitle: "React · Next.js · TypeScript · Tailwind CSS",
   tagline: "6 Months Industry Experience · 2+ Deployed Projects · MCA 2026",
   // Location confirmed by user as Noida, UP (Delhi NCR).
   location: "Noida, UP, India",
@@ -19,9 +19,9 @@ export const PROFILE = {
   resume: "/resume.pdf",
   // Honest, professional, human-written About summary.
   bio: [
-    "I'm an entry-level full-stack developer who builds real web applications with React, Next.js, TypeScript, Node.js and PostgreSQL. I have 6 months of industry experience from a software development internship.",
+    "I'm an entry-level frontend developer who builds real, responsive web applications with React, Next.js, TypeScript and Tailwind CSS. I have 6 months of industry experience from a software development internship.",
     "I've built and deployed two live, open-source projects — NutriFit, an AI-powered nutrition platform, and MoneyFlow, an AI-powered personal finance app — both running on Vercel.",
-    "I care about clean UI, responsive design, and code that's easy to maintain. I'm open to entry-level full-stack or frontend developer roles.",
+    "I care about clean UI, responsive design, and code that's easy to maintain. I'm open to entry-level frontend or full-stack developer roles.",
   ],
   stats: [
     { label: "Deployed projects", value: 2, suffix: "+" },
@@ -64,13 +64,13 @@ export const TECH_STACK: TechGroup[] = [
     category: "Frontend",
     icon: Layout,
     color: "oklch(0.68 0.16 55)",
-    skills: ["HTML5", "CSS3", "JavaScript (ES6+)", "React.js", "TypeScript", "Tailwind CSS"],
+    skills: ["HTML5", "CSS3", "JavaScript (ES6+)", "React.js", "Next.js", "TypeScript", "Tailwind CSS"],
   },
   {
-    category: "Backend & Database",
-    icon: Database,
+    category: "APIs & Integration",
+    icon: Plug,
     color: "oklch(0.55 0.1 190)",
-    skills: ["Node.js", "Express.js", "REST APIs", "Supabase / PostgreSQL", "MongoDB"],
+    skills: ["REST API Integration", "Google Gemini API"],
   },
   {
     category: "Tools & Deployment",
@@ -93,6 +93,7 @@ export type Project = {
   description: string
   tech: string[]
   features: string[]
+  backendNote: string
   demoUrl: string
   repoUrl: string
   accent: string
@@ -104,7 +105,7 @@ export const PROJECTS: Project[] = [
     title: "NutriFit",
     description:
       "AI-powered nutrition and fitness platform that helps users track meals, understand nutrition, generate personalized workouts, and stay consistent with their fitness goals.",
-    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Google Gemini AI", "PWA"],
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Google Gemini AI", "PWA"],
     features: [
       "AI meal analysis & nutrition tracking",
       "AI-generated personalized workouts",
@@ -112,6 +113,7 @@ export const PROJECTS: Project[] = [
       "Authentication",
       "Installable, offline-friendly PWA",
     ],
+    backendNote: "REST API integration with a Node.js/Express backend",
     demoUrl: "https://nutrifit-pi-beige.vercel.app/",
     repoUrl: "https://github.com/null-quantum/nutrifit",
     accent: "oklch(0.58 0.13 140)",
@@ -121,7 +123,7 @@ export const PROJECTS: Project[] = [
     title: "MoneyFlow",
     description:
       "AI-powered personal finance application that lets users record expenses using natural language, parse bank/UPI SMS messages, and understand their spending through an interactive dashboard.",
-    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Google Gemini AI", "Zustand", "PWA"],
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Google Gemini AI", "Zustand", "PWA"],
     features: [
       "Natural-language expense entry",
       "AI-powered expense parsing",
@@ -129,6 +131,7 @@ export const PROJECTS: Project[] = [
       "Spending analytics with interactive charts",
       "Authentication & PWA / offline-capable",
     ],
+    backendNote: "REST API integration with a Next.js API backend",
     demoUrl: "https://moneyflow-lemon.vercel.app/",
     repoUrl: "https://github.com/null-quantum/moneyflow",
     accent: "oklch(0.55 0.1 190)",
@@ -144,7 +147,6 @@ export const NAV_ITEMS = [
 ]
 
 export const MARQUEE_ITEMS = [
-  "HTML5", "CSS3", "JavaScript", "React.js", "TypeScript", "Tailwind CSS",
-  "Node.js", "Express.js", "REST APIs", "Supabase", "PostgreSQL", "MongoDB",
-  "Git", "GitHub", "Postman", "Vercel", "Google Gemini", "PWA",
+  "HTML5", "CSS3", "JavaScript", "React.js", "Next.js", "TypeScript", "Tailwind CSS",
+  "REST APIs", "Google Gemini API", "Git", "GitHub", "Postman", "Vercel", "PWA",
 ]

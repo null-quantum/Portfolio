@@ -2,52 +2,50 @@
 
 import * as React from "react"
 
-/** Animates a number from 0 to `end` when the element scrolls into view.
- *  Robust: low threshold, checks initial viewport state, re-triggers on re-entry. */
-export function useCountUp(end: number, duration = 1600, decimals = 0) {
-  const [value, setValue] = React.useState(0)
+/** Displays the final number immediately, with an optional count-up animation
+ *  once the element is in view. Falls back to the final value instantly if
+ *  IntersectionObserver isn't available or the element is already visible —
+ *  so the stat never appears stuck at 0. */
+export function useCountUp(end: number, duration = 1400, decimals = 0) {
+  // Start at the final value so SSR + first paint always shows the real number.
+  const [value, setValue] = React.useState(end)
   const ref = React.useRef<HTMLSpanElement>(null)
+  const animated = React.useRef(false)
 
   React.useEffect(() => {
     const node = ref.current
     if (!node) return
+    if (animated.current) return
+    if (typeof IntersectionObserver === "undefined") return
 
-    let raf = 0
-    const animate = () => {
+    const startAnim = () => {
+      if (animated.current) return
+      animated.current = true
+      setValue(0)
       const start = performance.now()
       const tick = (now: number) => {
         const p = Math.min((now - start) / duration, 1)
         const eased = 1 - Math.pow(1 - p, 3)
         setValue(end * eased)
-        if (p < 1) raf = requestAnimationFrame(tick)
+        if (p < 1) requestAnimationFrame(tick)
       }
-      raf = requestAnimationFrame(tick)
+      requestAnimationFrame(tick)
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            animate()
+            startAnim()
             observer.disconnect()
           }
         })
       },
-      { threshold: 0.05, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.1 }
     )
     observer.observe(node)
 
-    // Fallback: if already in viewport on mount, start immediately.
-    const rect = node.getBoundingClientRect()
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      animate()
-      observer.disconnect()
-    }
-
-    return () => {
-      observer.disconnect()
-      cancelAnimationFrame(raf)
-    }
+    return () => observer.disconnect()
   }, [end, duration])
 
   const display = decimals > 0 ? value.toFixed(decimals) : Math.round(value).toString()

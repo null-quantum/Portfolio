@@ -78,15 +78,18 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             </ul>
           )}
 
-          <div className="flex flex-wrap gap-1.5 mt-4 mb-5">
+          <div className="flex flex-wrap gap-1.5 mt-4">
             {project.tech.map((t) => (
               <Badge key={t} variant="secondary" className="font-mono text-[11px] font-normal">
                 {t}
               </Badge>
             ))}
           </div>
+          {project.backendNote && (
+            <p className="mt-2 mb-4 text-xs text-muted-foreground italic">{project.backendNote}</p>
+          )}
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mt-1">
             {project.demoUrl ? (
               <Button asChild size="sm" className="gap-1.5">
                 <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
